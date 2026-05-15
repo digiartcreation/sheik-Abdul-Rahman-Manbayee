@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse educational articles about study skills, technology, science, and personal growth.">
+  <title>Blog - Learnly</title>
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Header: same navigation used on the homepage -->
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="logo" href="index.html" aria-label="Learnly home">
+        <span class="logo-mark">L</span>
+        <span>Learnly</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-menu">
+        <a href="index.html">Home</a>
+        <a href="blog.html" aria-current="page">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <button class="theme-toggle" type="button" aria-label="Switch color theme">Dark</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Page intro -->
+    <section class="page-hero section">
+      <div class="container page-hero-content">
+        <p class="eyebrow">Learnly Blog</p>
+        <h1>Educational articles for focused learners.</h1>
+        <p>
+          Browse practical guides, clear explainers, and useful ideas across study skills,
+          technology, science, and personal growth.
+        </p>
+      </div>
+    </section>
+
+    <!-- Blog layout: main article grid plus sidebar -->
+    <section class="section">
+      <div class="container blog-layout">
+        <div>
+          <div class="filter-bar" aria-label="Blog categories">
+            <a class="filter-pill active" href="#">All</a>
+            <a class="filter-pill" href="#">Study Skills</a>
+            <a class="filter-pill" href="#">Technology</a>
+            <a class="filter-pill" href="#">Science</a>
+            <a class="filter-pill" href="#">Growth</a>
+          </div>
+
+          <div class="blog-grid">
+            <article class="post-card">
+              <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=80" alt="Notebook and laptop on a desk">
+              <div class="post-content">
+                <p class="post-meta">Study Skills • 6 min read</p>
+                <h2><a href="article.html">How to Build a Study Routine That Actually Works</a></h2>
+                <p>Create a calm, repeatable study system that helps you learn more with less stress.</p>
+              </div>
+            </article>
+
+            <article class="post-card">
+              <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Person learning online on a laptop">
+              <div class="post-content">
+                <p class="post-meta">Technology • 4 min read</p>
+                <h2><a href="article.html">Digital Tools Every Student Should Know</a></h2>
+                <p>Simple tools for notes, planning, research, and focused online learning.</p>
+              </div>
+            </article>
+
+            <article class="post-card">
+              <img src="https://images.unsplash.com/photo-1532619187608-e5375cab36aa?auto=format&fit=crop&w=900&q=80" alt="Open book with notes">
+              <div class="post-content">
+                <p class="post-meta">Learning • 5 min read</p>
+                <h2><a href="article.html">The Beginner's Guide to Active Recall</a></h2>
+                <p>Learn why testing yourself is one of the strongest ways to remember information.</p>
+              </div>
+            </article>
+
+            <article class="post-card">
+              <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=80" alt="Students reading books in a library">
+              <div class="post-content">
+                <p class="post-meta">Science • 7 min read</p>
+                <h2><a href="article.html">Why Sleep Matters for Memory</a></h2>
+                <p>A simple explanation of how rest supports learning, recall, and better focus.</p>
+              </div>
+            </article>
+
+            <article class="post-card">
+              <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=900&q=80" alt="Desk with books and writing supplies">
+              <div class="post-content">
+                <p class="post-meta">Study Skills • 5 min read</p>
+                <h2><a href="article.html">How to Take Notes That Stay Useful Later</a></h2>
+                <p>A beginner-friendly note-taking method for classes, courses, and self-study.</p>
+              </div>
+            </article>
+
+            <article class="post-card">
+              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80" alt="People working on laptops together">
+              <div class="post-content">
+                <p class="post-meta">Technology • 6 min read</p>
+                <h2><a href="article.html">How to Research Faster Without Getting Lost</a></h2>
+                <p>Practical ways to search, save, and organize trustworthy information online.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Sidebar: helpful extra content on desktop, stacks on mobile -->
+        <aside class="blog-sidebar" aria-label="Blog sidebar">
+          <section class="sidebar-card">
+            <h2>About Learnly</h2>
+            <p>
+              Learnly shares clear educational information for students, self-learners,
+              and curious readers who want practical knowledge.
+            </p>
+          </section>
+
+          <section class="sidebar-card">
+            <h2>Popular Topics</h2>
+            <div class="topic-list">
+              <a href="#">Study Planning</a>
+              <a href="#">Memory</a>
+              <a href="#">Online Learning</a>
+              <a href="#">Productivity</a>
+            </div>
+          </section>
+
+          <section class="sidebar-card sidebar-accent">
+            <h2>Weekly Tips</h2>
+            <p>Get one practical learning idea in your inbox every week.</p>
+            <a class="btn btn-primary" href="contact.html">Join Newsletter</a>
+          </section>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="logo" href="index.html">
+          <span class="logo-mark">L</span>
+          <span>Learnly</span>
+        </a>
+        <p>Simple educational information for better everyday learning.</p>
+      </div>
+      <div class="footer-links">
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

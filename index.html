@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learnly is an educational blog with practical articles, study guides, and clear learning resources.">
+  <title>Learnly - Educational Information Blog</title>
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- Header: shared navigation for all pages later -->
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a class="logo" href="index.html" aria-label="Learnly home">
+        <span class="logo-mark">L</span>
+        <span>Learnly</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="nav-menu">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <button class="theme-toggle" type="button" aria-label="Switch color theme">Dark</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero section: first impression of the website -->
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="eyebrow">Educational Information</p>
+          <h1>Clear learning guides for curious minds.</h1>
+          <p class="hero-text">
+            Explore simple, practical articles that make study skills, technology, science,
+            and personal growth easier to understand.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="blog.html">Read Articles</a>
+            <a class="btn btn-secondary" href="#featured">Featured Posts</a>
+          </div>
+        </div>
+
+        <div class="hero-card" aria-label="Featured learning statistics">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Students learning together at a table">
+          <div class="hero-card-content">
+            <strong>Weekly Learning Digest</strong>
+            <span>Study smarter with carefully selected educational insights.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured articles -->
+    <section class="section" id="featured">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Featured Articles</p>
+          <h2>Start with our best learning resources</h2>
+        </div>
+
+        <div class="featured-grid">
+          <article class="post-card post-card-large">
+            <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=80" alt="Notebook and laptop on a desk">
+            <div class="post-content">
+              <p class="post-meta">Study Skills • 6 min read</p>
+              <h3><a href="article.html">How to Build a Study Routine That Actually Works</a></h3>
+              <p>Create a calm, repeatable study system that helps you learn more with less stress.</p>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=700&q=80" alt="Person learning online on a laptop">
+            <div class="post-content">
+              <p class="post-meta">Technology • 4 min read</p>
+              <h3><a href="article.html">Digital Tools Every Student Should Know</a></h3>
+              <p>Simple tools for notes, planning, research, and focused learning.</p>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <img src="https://images.unsplash.com/photo-1532619187608-e5375cab36aa?auto=format&fit=crop&w=700&q=80" alt="Open book with notes">
+            <div class="post-content">
+              <p class="post-meta">Learning • 5 min read</p>
+              <h3><a href="article.html">The Beginner's Guide to Active Recall</a></h3>
+              <p>Learn why testing yourself is one of the strongest ways to remember information.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section section-soft">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Categories</p>
+          <h2>Browse by topic</h2>
+        </div>
+
+        <div class="category-grid">
+          <a class="category-card" href="blog.html">
+            <span>01</span>
+            <h3>Study Skills</h3>
+            <p>Better routines, memory methods, and exam preparation.</p>
+          </a>
+          <a class="category-card" href="blog.html">
+            <span>02</span>
+            <h3>Technology</h3>
+            <p>Useful digital tools, AI basics, and online learning tips.</p>
+          </a>
+          <a class="category-card" href="blog.html">
+            <span>03</span>
+            <h3>Science</h3>
+            <p>Clear explainers about the world, health, and discovery.</p>
+          </a>
+          <a class="category-card" href="blog.html">
+            <span>04</span>
+            <h3>Personal Growth</h3>
+            <p>Focus, habits, confidence, and lifelong learning.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest posts -->
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Latest Posts</p>
+          <h2>Fresh educational reads</h2>
+        </div>
+
+        <div class="latest-list">
+          <article class="latest-post">
+            <p class="post-meta">May 14, 2026 • Learning</p>
+            <h3><a href="article.html">How to Take Notes That Stay Useful Later</a></h3>
+            <p>A beginner-friendly note-taking method for classes, courses, and self-study.</p>
+          </article>
+          <article class="latest-post">
+            <p class="post-meta">May 10, 2026 • Science</p>
+            <h3><a href="article.html">Why Sleep Matters for Memory</a></h3>
+            <p>A simple explanation of how rest supports learning and recall.</p>
+          </article>
+          <article class="latest-post">
+            <p class="post-meta">May 6, 2026 • Technology</p>
+            <h3><a href="article.html">How to Research Faster Without Getting Lost</a></h3>
+            <p>Practical ways to search, save, and organize trustworthy information.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter section">
+      <div class="container newsletter-box">
+        <div>
+          <p class="eyebrow">Newsletter</p>
+          <h2>Get smarter learning tips every week.</h2>
+        </div>
+        <form class="newsletter-form">
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" type="email" placeholder="Enter your email" required>
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer: shared site ending -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="logo" href="index.html">
+          <span class="logo-mark">L</span>
+          <span>Learnly</span>
+        </a>
+        <p>Simple educational information for better everyday learning.</p>
+      </div>
+      <div class="footer-links">
+        <a href="blog.html">Blog</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript file -->
+  <script src="js/main.js"></script>
+</body>
+</html>
