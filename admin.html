@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin dashboard for managing Tamil Islamic website content.">
+  <title>Admin Dashboard - Learnly</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <main>
+    <!-- Login screen -->
+    <section class="login-screen" id="login-screen">
+      <div class="login-card">
+        <p class="eyebrow">Admin Login</p>
+        <h1>Islamic Content Dashboard</h1>
+        <p class="muted">Sign in with your Firebase admin email and password.</p>
+
+        <form class="login-form" id="login-form">
+          <label for="login-email">Email address</label>
+          <input id="login-email" type="email" placeholder="admin@example.com" required>
+
+          <label for="login-password">Password</label>
+          <input id="login-password" type="password" placeholder="Your password" required>
+
+          <button class="btn btn-primary" type="submit">Login</button>
+          <p class="form-message" id="login-message"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Dashboard screen -->
+    <section class="admin-shell is-hidden" id="admin-shell">
+      <aside class="admin-sidebar">
+        <div class="brand">
+          <span class="brand-mark">A</span>
+          <div>
+            <strong>Admin Panel</strong>
+            <small>Tamil Islamic Content</small>
+          </div>
+        </div>
+
+        <nav class="admin-nav" aria-label="Admin sections">
+          <button class="admin-nav-btn is-active" type="button" data-section="all-posts">All Posts</button>
+          <button class="admin-nav-btn" type="button" data-section="article-form">Add Article</button>
+          <button class="admin-nav-btn" type="button" data-section="video-form">Add Video</button>
+          <button class="admin-nav-btn" type="button" data-section="qa-form">Add Q/A</button>
+          <button class="admin-nav-btn" type="button" data-section="khuthbah-form">Add Khuthbah</button>
+        </nav>
+
+        <button class="btn btn-secondary logout-btn" type="button" id="logout-btn">Logout</button>
+      </aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div>
+            <p class="eyebrow">Dashboard</p>
+            <h1>Manage Website Content</h1>
+          </div>
+          <button class="btn btn-primary" type="button" id="refresh-btn">Refresh Posts</button>
+        </header>
+
+        <section class="admin-section" id="all-posts">
+          <div class="section-title">
+            <h2>All Posts</h2>
+            <p class="muted">Articles, videos, Q/A, and Khuthbah entries from Firestore.</p>
+          </div>
+          <div class="post-list" id="post-list"></div>
+        </section>
+
+        <!-- Each form saves to a different Firestore collection. -->
+        <section class="admin-section is-hidden" id="article-form">
+          <div class="section-title">
+            <h2>Add Article</h2>
+            <p class="muted">Collection: articles</p>
+          </div>
+          <form class="content-form" data-collection="articles">
+            <input type="hidden" name="docId">
+            <label>Title<input name="title" type="text" required></label>
+            <label>Description<textarea name="description" rows="4" required></textarea></label>
+            <label>Thumbnail Image URL<input name="image" type="url" required></label>
+            <label>Category<input name="category" type="text" placeholder="Quran, Hadith, Fiqh..." required></label>
+            <label>Date<input name="date" type="date" required></label>
+            <label>Content<textarea name="content" rows="7" required></textarea></label>
+            <button class="btn btn-primary" type="submit">Save Article</button>
+            <p class="form-message"></p>
+          </form>
+        </section>
+
+        <section class="admin-section is-hidden" id="video-form">
+          <div class="section-title">
+            <h2>Add Video</h2>
+            <p class="muted">Collection: videos</p>
+          </div>
+          <form class="content-form" data-collection="videos">
+            <input type="hidden" name="docId">
+            <label>Title<input name="title" type="text" required></label>
+            <label>Description<textarea name="description" rows="4" required></textarea></label>
+            <label>Thumbnail Image URL<input name="image" type="url" required></label>
+            <label>Category<input name="category" type="text" placeholder="Lecture, Reminder, Class..." required></label>
+            <label>Date<input name="date" type="date" required></label>
+            <label>Video Link<input name="content" type="url" placeholder="https://youtube.com/..." required></label>
+            <button class="btn btn-primary" type="submit">Save Video</button>
+            <p class="form-message"></p>
+          </form>
+        </section>
+
+        <section class="admin-section is-hidden" id="qa-form">
+          <div class="section-title">
+            <h2>Add Q/A</h2>
+            <p class="muted">Collection: qa</p>
+          </div>
+          <form class="content-form" data-collection="qa">
+            <input type="hidden" name="docId">
+            <label>Question Title<input name="title" type="text" required></label>
+            <label>Short Answer Preview<textarea name="description" rows="4" required></textarea></label>
+            <label>Thumbnail Image URL<input name="image" type="url" required></label>
+            <label>Category<input name="category" type="text" placeholder="Prayer, Zakat, Family..." required></label>
+            <label>Date<input name="date" type="date" required></label>
+            <label>Full Answer<textarea name="content" rows="7" required></textarea></label>
+            <button class="btn btn-primary" type="submit">Save Q/A</button>
+            <p class="form-message"></p>
+          </form>
+        </section>
+
+        <section class="admin-section is-hidden" id="khuthbah-form">
+          <div class="section-title">
+            <h2>Add Khuthbah</h2>
+            <p class="muted">Collection: khutbah</p>
+          </div>
+          <form class="content-form" data-collection="khutbah">
+            <input type="hidden" name="docId">
+            <label>Topic Title<input name="title" type="text" required></label>
+            <label>Description<textarea name="description" rows="4" required></textarea></label>
+            <label>Thumbnail Image URL<input name="image" type="url" required></label>
+            <label>Speaker / Category<input name="category" type="text" placeholder="Sheikh Abdur Rahman" required></label>
+            <label>Date<input name="date" type="date" required></label>
+            <label>Content or Audio Link<textarea name="content" rows="7" required></textarea></label>
+            <button class="btn btn-primary" type="submit">Save Khuthbah</button>
+            <p class="form-message"></p>
+          </form>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

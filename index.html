@@ -10,6 +10,253 @@
 
   <!-- Main stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Scoped homepage hero redesign */
+    .islamic-hero {
+      position: relative;
+      width: 100vw;
+      min-height: 90vh;
+      margin-left: calc(50% - 50vw);
+      padding: clamp(24px, 4vh, 40px) 0 clamp(36px, 6vh, 64px);
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      background-image: url("images/bg1.png");
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
+
+    .islamic-hero__inner {
+      position: relative;
+      z-index: 1;
+      min-height: calc(90vh - clamp(60px, 10vh, 104px));
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: clamp(24px, 4vh, 46px);
+      align-items: start;
+      align-content: start;
+    }
+
+    .islamic-hero__card {
+      width: min(100%, 1080px);
+      margin: 0 auto;
+      padding: 40px 48px;
+      border-radius: 16px;
+      color: #1a1a1a;
+      background: #faf7f0;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+    }
+
+    .islamic-hero__content {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(220px, 2fr);
+      gap: clamp(28px, 5vw, 56px);
+      align-items: center;
+    }
+
+    .islamic-hero__label {
+      margin: 0 0 12px;
+      color: #FFC30B;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .islamic-hero .islamic-hero__title {
+      margin: 0;
+      color: #1a1a1a;
+      font-size: clamp(24px, 4vw, 36px);
+      line-height: 1.18;
+      font-weight: 800;
+    }
+
+    .islamic-hero .islamic-hero__text {
+      max-width: 620px;
+      margin: 16px 0 0;
+      color: #333333;
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      line-height: 1.7;
+    }
+
+    .islamic-hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .islamic-hero__button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      border-radius: 8px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .islamic-hero__button--primary {
+      color: #ffffff;
+      background: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .islamic-hero__button--secondary {
+      color: #ffffff;
+      background: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .islamic-hero__button:hover {
+      color: #1a1a1a;
+      background: var(--secondary);
+      border-color: var(--secondary);
+    }
+
+    .islamic-hero__author {
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--primary);
+    }
+
+    .islamic-hero__author img {
+      width: min(100%, 280px);
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .islamic-hero__caption {
+      margin: 0;
+      color: #ffffff;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .islamic-hero__counters {
+      align-self: start;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      width: min(100%, 1080px);
+      margin: 0 auto;
+      color: #1a1a1a;
+    }
+
+    .islamic-hero__counter {
+      position: relative;
+      padding: 0 clamp(16px, 3vw, 36px);
+      text-align: center;
+    }
+
+    .islamic-hero__counter:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 12%;
+      right: 0;
+      width: 1px;
+      height: 76%;
+      background: rgba(26, 26, 26, 0.24);
+    }
+
+    .islamic-hero__number {
+      display: block;
+      color: var(--primary);
+      font-size: clamp(2.1rem, 5vw, 4rem);
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .islamic-hero__counter-label {
+      display: block;
+      margin-top: 10px;
+      color: #1a1a1a;
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      font-weight: 800;
+    }
+
+    @media (max-width: 820px) {
+      .islamic-hero {
+        background-size: auto 100%;
+        background-position: center top;
+      }
+
+      .islamic-hero__content {
+        grid-template-columns: 1fr;
+      }
+
+      .islamic-hero__author img {
+        width: min(72vw, 280px);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .islamic-hero {
+        min-height: 90vh;
+        padding: 20px 0 34px;
+        background-size: auto 100%;
+        background-position: center top;
+      }
+
+      .islamic-hero__inner {
+        gap: 34px;
+      }
+
+      .islamic-hero__card {
+        padding: 32px 24px;
+      }
+
+      .islamic-hero__actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .islamic-hero__button {
+        width: 100%;
+      }
+
+      .islamic-hero .islamic-hero__title {
+        font-size: clamp(24px, 8vw, 34px);
+        line-height: 1.18;
+      }
+
+      .islamic-hero__counters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 0;
+      }
+
+      .islamic-hero__counter:nth-child(2)::after {
+        display: none;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .islamic-hero {
+        background-size: auto 100%;
+        background-position: center top;
+      }
+
+      .islamic-hero__card {
+        padding: 28px 20px;
+      }
+
+      .islamic-hero__counter {
+        padding: 0 12px;
+      }
+    }
+
+    @media (min-aspect-ratio: 16 / 9) {
+      .islamic-hero {
+        background-size: 100% auto;
+        background-position: center top;
+      }
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -40,36 +287,155 @@
 
   <main id="main-content">
     <!-- Hero section: first impression of the website -->
-    <section class="hero section">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <p class="eyebrow">Educational Information</p>
-          <h1>Clear learning guides for curious minds.</h1>
-          <p class="hero-text">
-            Explore simple, practical articles that make study skills, technology, science,
-            and personal growth easier to understand.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="blog.html">Read Articles</a>
-            <a class="btn btn-secondary" href="#featured">Featured Posts</a>
+    <section class="hero section islamic-hero">
+      <div class="container islamic-hero__inner">
+        <div class="islamic-hero__card">
+          <div class="islamic-hero__content">
+            <div class="islamic-hero__copy">
+              <p class="islamic-hero__label">AHLUL ISLAM</p>
+              <h1 class="islamic-hero__title">இஸ்லாமிய அறிவின் வாயில்</h1>
+              <p class="islamic-hero__text">
+                குர்ஆன், ஹதீஸ், சட்டங்கள் மற்றும் ஆய்வுகள் தமிழில் எளிமையாக புரிந்துகொள்ளுங்கள்.
+              </p>
+              <div class="islamic-hero__actions">
+                <a class="islamic-hero__button islamic-hero__button--primary" href="blog.html">கட்டுரைகளை படிக்க</a>
+                <a class="islamic-hero__button islamic-hero__button--secondary" href="about.html">எங்களை பற்றி</a>
+              </div>
+            </div>
+
+            <div class="islamic-hero__author">
+              <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=400&q=80" alt="Sheikh Abdur Rahman">
+              <p class="islamic-hero__caption">Sheikh Abdur Rahman</p>
+            </div>
           </div>
         </div>
 
-        <div class="hero-card" aria-label="Featured learning statistics">
-          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Students learning together at a table">
-          <div class="hero-card-content">
-            <strong>Weekly Learning Digest</strong>
-            <span>Study smarter with carefully selected educational insights.</span>
+        <div class="islamic-hero__counters" aria-label="Website content counters">
+          <div class="islamic-hero__counter">
+            <span class="islamic-hero__number" data-count="150">0</span>
+            <span class="islamic-hero__counter-label">கட்டுரைகள்</span>
+          </div>
+          <div class="islamic-hero__counter">
+            <span class="islamic-hero__number" data-count="85">0</span>
+            <span class="islamic-hero__counter-label">வீடியோக்கள்</span>
+          </div>
+          <div class="islamic-hero__counter">
+            <span class="islamic-hero__number" data-count="60">0</span>
+            <span class="islamic-hero__counter-label">ஆடியோக்கள்</span>
+          </div>
+          <div class="islamic-hero__counter">
+            <span class="islamic-hero__number" data-count="40">0</span>
+            <span class="islamic-hero__counter-label">வகுப்புகள்</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Featured articles -->
-    <section class="section" id="featured">
+    <!-- Browse by Category: dynamic tab section -->
+    <section class="category-tabs-section section" id="featured">
+      <div class="container">
+        <div class="section-heading category-tabs-heading">
+          <p class="eyebrow">Tamil Islamic Library</p>
+          <h2>Browse by Category</h2>
+        </div>
+
+        <div class="category-tabs" data-tabs>
+          <div class="category-tab-list" role="tablist" aria-label="Browse content categories">
+            <button class="category-tab-button is-active" type="button" role="tab" aria-selected="true" aria-controls="articles-panel" id="articles-tab" data-tab="articles">Articles</button>
+            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="videos-panel" id="videos-tab" data-tab="videos">Videos</button>
+            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="qa-panel" id="qa-tab" data-tab="qa">Q/A</button>
+            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="khuthba-panel" id="khuthba-tab" data-tab="khuthba">Khuthba</button>
+          </div>
+
+          <div class="category-tab-panel is-active" id="articles-panel" role="tabpanel" aria-labelledby="articles-tab" data-panel="articles">
+            <div class="content-card-grid">
+              <article class="library-card"><img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=800&q=80" alt="Open Quran with prayer beads"><div class="library-card-body"><span class="content-badge">Quran</span><h3>சூரா அல்-ஃபாத்திஹாவின் விளக்கம்</h3><p>தினசரி தொழுகையில் ஓதப்படும் அத்தியாயத்தின் முக்கிய அர்த்தங்களை எளிமையாக அறியுங்கள்.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card"><img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&w=800&q=80" alt="Quran pages in warm light"><div class="library-card-body"><span class="content-badge">Hadith</span><h3>நல்ல குணம் பற்றிய நபிமொழிகள்</h3><p>ஒரு முஸ்லிமின் வாழ்வில் பண்பு, பொறுமை, கருணை ஆகியவற்றின் இடத்தைப் பார்ப்போம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card"><img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=800&q=80" alt="Mosque interior with arches"><div class="library-card-body"><span class="content-badge">Fiqh</span><h3>தொழுகையின் அடிப்படை சட்டங்கள்</h3><p>புதியவர்களும் புரிந்துகொள்ளும் வகையில் தொழுகையின் முக்கிய நிபந்தனைகள்.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card"><img src="https://images.unsplash.com/photo-1564769662533-4f00a87b4056?auto=format&fit=crop&w=800&q=80" alt="Islamic architecture with geometric details"><div class="library-card-body"><span class="content-badge">History</span><h3>இஸ்லாமிய நாகரிகத்தின் அறிவுப் பாரம்பரியம்</h3><p>அறிவு, ஆய்வு, நூலகங்கள் ஆகியவை முஸ்லிம் சமூகத்தில் பெற்ற உயர்ந்த நிலை.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card"><img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80" alt="Mosque dome at sunset"><div class="library-card-body"><span class="content-badge">Spirituality</span><h3>துஆவின் மரியாதையும் நம்பிக்கையும்</h3><p>துஆ செய்யும் போது மன அமைதி, நம்பிக்கை, தொடர்ச்சி ஆகியவற்றை வளர்ப்பது எப்படி.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card"><img src="https://images.unsplash.com/photo-1564121211835-e88c852648ab?auto=format&fit=crop&w=800&q=80" alt="Islamic pattern and warm lights"><div class="library-card-body"><span class="content-badge">Family</span><h3>குடும்ப வாழ்வில் இஸ்லாமிய ஒழுக்கம்</h3><p>மரியாதை, உரையாடல், பொறுப்பு ஆகியவற்றை மையமாகக் கொண்ட குடும்ப வழிகாட்டல்.</p><a class="content-link" href="article.html">Read More</a></div></article>
+            </div>
+            <div class="tab-view-all"><a class="btn btn-primary" href="blog.html">View All Articles</a></div>
+          </div>
+
+          <div class="category-tab-panel" id="videos-panel" role="tabpanel" aria-labelledby="videos-tab" data-panel="videos" hidden>
+            <div class="content-card-grid">
+              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/ysz5S6PUM-U/hqdefault.jpg" alt="Islamic lecture video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>குர்ஆன் படிப்பின் ஆரம்ப வழிகாட்டல்</h3><p>தொடக்கநிலையிலிருந்து சரியான முறையில் குர்ஆன் கற்க உதவும் அறிமுகம்.</p><a class="content-link" href="#">Watch Video</a></div></article>
+              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg" alt="Islamic reminder video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>தினசரி திக்ரின் முக்கியத்துவம்</h3><p>மன அமைதிக்கும் இறை நினைவுக்கும் திக்ர் தரும் நன்மைகள் பற்றிய குறும்பேச்சு.</p><a class="content-link" href="#">Watch Video</a></div></article>
+              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg" alt="Tamil Islamic class thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>தொழுகையை புரிந்து தொழுவது</h3><p>தொழுகையின் அர்த்தம், ஒழுங்கு, கவனம் ஆகியவற்றை எளிமையாக விளக்கும் வீடியோ.</p><a class="content-link" href="#">Watch Video</a></div></article>
+              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/kJQP7kiw5Fk/hqdefault.jpg" alt="Islamic knowledge session thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>இஸ்லாமிய அறிவின் அடிப்படை</h3><p>அறிவை தேடுவதின் நன்மை, நோக்கம், நடைமுறை ஆகியவற்றைச் சுருக்கமாக பார்க்கலாம்.</p><a class="content-link" href="#">Watch Video</a></div></article>
+              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg" alt="Islamic speech thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>நல்ல நண்பர்களின் தாக்கம்</h3><p>இளைஞர்கள் வாழ்க்கையில் நல்ல சூழலும் நல்ல நட்பும் தரும் பாதிப்பு.</p><a class="content-link" href="#">Watch Video</a></div></article>
+              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Islamic lesson thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>ரமழான் தயாரிப்பு வழிகாட்டல்</h3><p>ரமழானை ஆன்மிக வளர்ச்சிக்கான வாய்ப்பாக பயன்படுத்த உதவும் குறிப்புகள்.</p><a class="content-link" href="#">Watch Video</a></div></article>
+            </div>
+            <div class="tab-view-all"><a class="btn btn-primary" href="#">View All Videos</a></div>
+          </div>
+
+          <div class="category-tab-panel" id="qa-panel" role="tabpanel" aria-labelledby="qa-tab" data-panel="qa" hidden>
+            <div class="content-card-grid">
+              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>தொழுகை நேரம் தவறினால் என்ன செய்ய வேண்டும்?</h3><p>தவறிய தொழுகையை நிறைவேற்றும் முறையும் கவனிக்க வேண்டிய அடிப்படை விஷயங்களும்.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>துஆ எந்த மொழியில் செய்யலாம்?</h3><p>மனத்திலிருந்து இறைவனை வேண்டுவது, அரபி துஆக்களின் இடம், தனிப்பட்ட வேண்டுதல்கள்.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>ஸகாத் யாருக்கு கொடுக்கலாம்?</h3><p>ஸகாத்திற்கு தகுதியானவர்கள் மற்றும் சமூக பொறுப்பு பற்றிய சுருக்கமான விளக்கம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>குர்ஆன் படிக்க தினசரி நேரம் எப்படி அமைப்பது?</h3><p>சிறிய அளவில் தொடங்கி தொடர்ச்சியாக படிக்கும் பழக்கத்தை உருவாக்கும் நடைமுறை.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>குழந்தைகளுக்கு இஸ்லாமிய ஒழுக்கம் எப்படி கற்பிப்பது?</h3><p>அன்பு, முன்மாதிரி, தொடர்ச்சியான நினைவூட்டல் ஆகியவற்றின் முக்கியத்துவம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
+              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>ஹலால் வருமானத்தின் முக்கியத்துவம் என்ன?</h3><p>வாழ்க்கை அமைதி, குடும்ப நலன், இறைபக்தி ஆகியவற்றுடன் தொடர்புடைய அடிப்படை விளக்கம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
+            </div>
+            <div class="tab-view-all"><a class="btn btn-primary" href="#">View All Q/A</a></div>
+          </div>
+
+          <div class="category-tab-panel" id="khuthba-panel" role="tabpanel" aria-labelledby="khuthba-tab" data-panel="khuthba" hidden>
+            <div class="content-card-grid">
+              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Sheikh Abdur Rahman</span><h3>இறைநம்பிக்கையை பலப்படுத்துவது</h3><p>28 min - May 21, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
+              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Moulavi Ibrahim</span><h3>குடும்பத்தில் கருணையின் இடம்</h3><p>34 min - May 17, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
+              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Sheikh Yusuf</span><h3>இளைஞர்களும் நேரத்தின் மதிப்பும்</h3><p>25 min - May 10, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
+              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Moulavi Salman</span><h3>நன்மைக்கு அழைக்கும் சமூகம்</h3><p>31 min - May 3, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
+              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Sheikh Haroon</span><h3>துஆவும் தவக்குலும்</h3><p>29 min - Apr 26, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
+              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Moulavi Ameen</span><h3>நல்ல முடிவுகளுக்கான நல்ல நோக்கம்</h3><p>33 min - Apr 19, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
+            </div>
+            <div class="tab-view-all"><a class="btn btn-primary" href="#">View All Khuthba</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Posts -->
+    <section class="latest-islamic-posts section">
       <div class="container">
         <div class="section-heading">
-          <p class="eyebrow">Featured Articles</p>
+          <p class="eyebrow">Latest Posts</p>
+          <h2>புதிய பதிவுகள்</h2>
+        </div>
+
+        <div class="latest-post-grid">
+          <article class="latest-post-card"><img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&w=900&q=80" alt="Quran pages close up"><div class="latest-post-content"><p class="post-meta">May 21, 2026 - Quran</p><h3><a href="article.html">குர்ஆனை தினமும் படிக்க எளிய திட்டம்</a></h3><p>சிறிய அளவில் தொடங்கி தொடர்ச்சியான குர்ஆன் வாசிப்பு பழக்கத்தை உருவாக்கும் வழிகாட்டல்.</p></div></article>
+          <article class="latest-post-card"><img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=900&q=80" alt="Mosque arches interior"><div class="latest-post-content"><p class="post-meta">May 19, 2026 - Prayer</p><h3><a href="article.html">தொழுகையில் கவனம் பெற உதவும் குறிப்புகள்</a></h3><p>அவசரமின்றி, அர்த்தத்துடன், மன அமைதியுடன் தொழ உதவும் நடைமுறை நினைவூட்டல்கள்.</p></div></article>
+          <article class="latest-post-card"><img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=900&q=80" alt="Mosque dome and minaret"><div class="latest-post-content"><p class="post-meta">May 16, 2026 - Spirituality</p><h3><a href="article.html">தவக்குல்: முயற்சிக்கும் நம்பிக்கைக்கும் இடையிலான சமநிலை</a></h3><p>முயற்சி செய்த பின் இறைவன் மீது நம்பிக்கை வைப்பதின் அமைதியான அர்த்தம்.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subscribe -->
+    <section class="tamil-subscribe section">
+      <div class="container tamil-subscribe-box">
+        <div class="tamil-subscribe-content">
+          <p class="eyebrow">Subscribe</p>
+          <h2>தமிழில் இஸ்லாமிய அறிவை தொடர்ந்து பெறுங்கள்</h2>
+          <p>புதிய கட்டுரைகள், கேள்வி பதில்கள், குத்பா குறிப்புகள், மற்றும் பயனுள்ள நினைவூட்டல்கள் உங்கள் மின்னஞ்சலுக்கு.</p>
+        </div>
+
+        <form class="newsletter-form tamil-subscribe-form">
+          <label class="sr-only" for="subscribe-email">Email address</label>
+          <input id="subscribe-email" type="email" placeholder="உங்கள் மின்னஞ்சல்" required>
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Featured articles -->
+    <section class="section" hidden>
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Tamil Islamic Library</p>
           <h2>Start with our best learning resources</h2>
         </div>
 
@@ -105,7 +471,7 @@
     </section>
 
     <!-- Categories -->
-    <section class="section section-soft">
+    <section class="section section-soft" hidden>
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">Categories</p>
@@ -138,7 +504,7 @@
     </section>
 
     <!-- Latest posts -->
-    <section class="section">
+    <section class="section" hidden>
       <div class="container">
         <div class="section-heading">
           <p class="eyebrow">Latest Posts</p>
@@ -166,7 +532,7 @@
     </section>
 
     <!-- Newsletter -->
-    <section class="newsletter section">
+    <section class="newsletter section" hidden>
       <div class="container newsletter-box">
         <div>
           <p class="eyebrow">Newsletter</p>
@@ -200,6 +566,27 @@
   </footer>
 
   <!-- Main JavaScript file -->
+  <script>
+    document.querySelectorAll(".islamic-hero__number").forEach((counter) => {
+      const target = Number(counter.dataset.count);
+      const duration = 1200;
+      const startTime = performance.now();
+
+      function updateCounter(currentTime) {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        counter.textContent = `${Math.floor(progress * target)}+`;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        } else {
+          counter.textContent = `${target}+`;
+        }
+      }
+
+      requestAnimationFrame(updateCounter);
+    });
+  </script>
   <script src="js/main.js"></script>
+  <script type="module" src="public-content.js"></script>
 </body>
 </html>

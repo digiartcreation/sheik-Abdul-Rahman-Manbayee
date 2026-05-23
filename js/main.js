@@ -65,3 +65,27 @@ function showFormMessage(form, message) {
 
   formMessage.textContent = message;
 }
+
+// Switch homepage category tabs without leaving the page.
+document.querySelectorAll("[data-tabs]").forEach((tabsWrapper) => {
+  const tabButtons = tabsWrapper.querySelectorAll("[data-tab]");
+  const tabPanels = tabsWrapper.querySelectorAll("[data-panel]");
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const selectedTab = button.dataset.tab;
+
+      tabButtons.forEach((tabButton) => {
+        const isSelected = tabButton === button;
+        tabButton.classList.toggle("is-active", isSelected);
+        tabButton.setAttribute("aria-selected", isSelected);
+      });
+
+      tabPanels.forEach((panel) => {
+        const isSelected = panel.dataset.panel === selectedTab;
+        panel.hidden = !isSelected;
+        panel.classList.toggle("is-active", isSelected);
+      });
+    });
+  });
+});
