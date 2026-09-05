@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <linearGradient id="bg-quran" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1B6B4A"/>
+      <stop offset="100%" stop-color="#004d2c"/>
+    </linearGradient>
+    
+    <pattern id="lattice-quran" width="90" height="90" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#348463" stroke-width="1.5" opacity="0.18">
+        <path d="M45 0 L90 45 L45 90 L0 45 Z"/>
+        <circle cx="45" cy="45" r="14"/>
+      </g>
+    </pattern>
+  </defs>
+  <rect width="1200" height="750" fill="url(#bg-quran)"/>
+  <rect width="1200" height="750" fill="url(#lattice-quran)"/>
+  <rect x="18" y="18" width="1164" height="714" fill="none" stroke="#D4AF37" stroke-width="3" opacity="0.85"/>
+  <text x="50%" y="46%" font-size="150" text-anchor="middle" dominant-baseline="middle">📖</text>
+  <text x="50%" y="72%" font-size="46" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="'Noto Sans Tamil','Segoe UI',sans-serif" opacity="0.95">குர்ஆன்</text>
+  <text x="50%" y="80%" font-size="20" fill="#D4AF37" text-anchor="middle" letter-spacing="4" font-family="Georgia,serif">AHLUL ISLAM</text>
+</svg>

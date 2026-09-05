@@ -77,6 +77,39 @@ const articles = scraped.articles.map(a => ({
   content: cleanContent(a.content),
 }));
 
+// Additional articles sourced from Word documents (no original site page/photo).
+// See word-docs-articles.json — extracted from the manbayee.com Drive archive.
+const divisionLabels = {
+  quran: 'குர்ஆன்', hadith: 'ஹதீஸ்', aqeedah: 'கொள்கை', rulings: 'சட்டங்கள்',
+  history: 'வரலாறு', religions: 'மதங்கள்', general: 'பொதுவானவை',
+};
+const wordDocs = JSON.parse(fs.readFileSync('word-docs-articles.json', 'utf-8'))
+  // "காணொளிகள்" is just a bare video link, not an article
+  .filter(d => d.wordCount > 20)
+  .map((d, i) => {
+    const title = cleanContent(d.title);
+    let content = cleanContent(d.content);
+    // Word docs often repeat the title as the first paragraph — drop the duplicate.
+    const firstPara = content.split('\n\n')[0].trim();
+    if (firstPara === title) {
+      content = content.split('\n\n').slice(1).join('\n\n').trim();
+    }
+    const division = inferDivision({ category: '', title, content });
+    return {
+      id: String(1000 + i),
+      title,
+      category: divisionLabels[division],
+      division,
+      author: 'Sheikh Abdur Rahman',
+      date: '2020-01-21',
+      image: `/thumbnails/${division}.svg`,
+      views: 0,
+      content,
+    };
+  });
+
+articles.push(...wordDocs);
+
 // Generate the JS module
 let output = `// AUTO-GENERATED from manbayee.com — ${articles.length} articles
 // Last updated: ${new Date().toISOString()}
