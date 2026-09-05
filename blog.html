@@ -28,6 +28,7 @@
 
       <div class="nav-menu">
         <a href="index.html">Home</a>
+        <a href="index.html#introduction">அறிமுகம்</a>
         <a href="blog.html" aria-current="page">Blog</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
@@ -50,79 +51,51 @@
     </section>
 
     <!-- Blog category tabs: dynamic full-width content library -->
-    <section class="category-tabs-section section">
+    <!-- பிரிவுகள் படி தேடுக: browse the seven divisions (filtered on the category field) -->
+    <section class="category-tabs-section section" id="featured">
       <div class="container">
         <div class="section-heading category-tabs-heading">
-          <p class="eyebrow">Tamil Islamic Library</p>
-          <h2>Browse by Category</h2>
+          <p class="eyebrow">Browse by Category</p>
+          <h2>பிரிவுகள் படி தேடுக</h2>
         </div>
 
         <div class="category-tabs" data-tabs>
-          <div class="category-tab-list" role="tablist" aria-label="Browse blog categories">
-            <button class="category-tab-button is-active" type="button" role="tab" aria-selected="true" aria-controls="blog-articles-panel" id="blog-articles-tab" data-tab="articles">Articles</button>
-            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="blog-videos-panel" id="blog-videos-tab" data-tab="videos">Videos</button>
-            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="blog-qa-panel" id="blog-qa-tab" data-tab="qa">Q/A</button>
-            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="blog-khuthba-panel" id="blog-khuthba-tab" data-tab="khuthba">Khuthba</button>
+          <div class="category-tab-list" role="tablist" aria-label="பிரிவுகள்">
+            <button class="category-tab-button is-active" type="button" role="tab" aria-selected="true" aria-controls="blog-quran-panel" id="blog-quran-tab" data-tab="quran">குர்ஆன்</button>
+            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="blog-hadith-panel" id="blog-hadith-tab" data-tab="hadith">ஹதீஸ்</button>
+            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="blog-aqeedah-panel" id="blog-aqeedah-tab" data-tab="aqeedah">கொள்கை</button>
+            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="blog-rulings-panel" id="blog-rulings-tab" data-tab="rulings">சட்டங்கள்</button>
+            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="blog-history-panel" id="blog-history-tab" data-tab="history">வரலாறு</button>
+            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="blog-khutba-panel" id="blog-khutba-tab" data-tab="khutba">குதுபாக்கள்</button>
+            <button class="category-tab-button" type="button" role="tab" aria-selected="false" aria-controls="blog-general-panel" id="blog-general-tab" data-tab="general">பொதுவானவை</button>
           </div>
 
-          <div class="category-tab-panel is-active" id="blog-articles-panel" role="tabpanel" aria-labelledby="blog-articles-tab" data-panel="articles">
-            <div class="content-card-grid">
-              <article class="library-card"><img src="https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&w=800&q=80" alt="Open Quran with prayer beads"><div class="library-card-body"><span class="content-badge">Quran</span><h3>சூரா அல்-ஃபாத்திஹாவின் விளக்கம்</h3><p>தினசரி தொழுகையில் ஓதப்படும் அத்தியாயத்தின் முக்கிய அர்த்தங்களை எளிமையாக அறியுங்கள்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card"><img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&w=800&q=80" alt="Quran pages"><div class="library-card-body"><span class="content-badge">Hadith</span><h3>நல்ல குணம் பற்றிய நபிமொழிகள்</h3><p>பண்பு, பொறுமை, கருணை ஆகியவற்றின் இடத்தை நபிமொழிகள் வழியாகப் பார்ப்போம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card"><img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&w=800&q=80" alt="Mosque arches"><div class="library-card-body"><span class="content-badge">Fiqh</span><h3>தொழுகையின் அடிப்படை சட்டங்கள்</h3><p>தொழுகையின் நிபந்தனைகள், ஒழுங்குகள், கவனிக்க வேண்டிய விஷயங்கள்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card"><img src="https://images.unsplash.com/photo-1564769662533-4f00a87b4056?auto=format&fit=crop&w=800&q=80" alt="Islamic architecture"><div class="library-card-body"><span class="content-badge">History</span><h3>இஸ்லாமிய அறிவுப் பாரம்பரியம்</h3><p>அறிவு, ஆய்வு, நூலகங்கள் முஸ்லிம் சமூகத்தில் பெற்ற உயர்ந்த நிலை.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card"><img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=800&q=80" alt="Mosque dome"><div class="library-card-body"><span class="content-badge">Spirituality</span><h3>துஆவின் மரியாதையும் நம்பிக்கையும்</h3><p>துஆ செய்யும் போது மன அமைதி, நம்பிக்கை, தொடர்ச்சி ஆகியவற்றை வளர்ப்பது.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card"><img src="https://images.unsplash.com/photo-1564121211835-e88c852648ab?auto=format&fit=crop&w=800&q=80" alt="Islamic pattern"><div class="library-card-body"><span class="content-badge">Family</span><h3>குடும்ப வாழ்வில் இஸ்லாமிய ஒழுக்கம்</h3><p>மரியாதை, உரையாடல், பொறுப்பு ஆகியவற்றை மையமாகக் கொண்ட வழிகாட்டல்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card"><img src="https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=800&q=80" alt="Prayer beads"><div class="library-card-body"><span class="content-badge">Akhlaq</span><h3>நாவை பாதுகாப்பதின் முக்கியத்துவம்</h3><p>பேச்சு, பொறுப்பு, நன்மையை பேசுதல் பற்றிய இஸ்லாமிய நினைவூட்டல்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card"><img src="https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=800&q=80" alt="Mosque exterior"><div class="library-card-body"><span class="content-badge">Community</span><h3>சமூக சேவையின் நன்மை</h3><p>மக்களுக்கு உதவுவது இறைநம்பிக்கையின் அழகான வெளிப்பாடு என்பதைப் பார்ப்போம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card"><img src="https://images.unsplash.com/photo-1532009877282-3340270e0529?auto=format&fit=crop&w=800&q=80" alt="Books and study table"><div class="library-card-body"><span class="content-badge">Learning</span><h3>அறிவை தொடர்ச்சியாக கற்கும் பழக்கம்</h3><p>சிறிய நேரத்தைப் பயன்படுத்தி இஸ்லாமிய அறிவை வளர்க்கும் நடைமுறை வழி.</p><a class="content-link" href="article.html">Read More</a></div></article>
-            </div>
-            <div class="tab-view-all"><a class="btn btn-primary" href="#">View All Articles</a></div>
+          <div class="category-tab-panel is-active" id="blog-quran-panel" role="tabpanel" aria-labelledby="blog-quran-tab" data-panel="quran">
+            <div class="content-card-grid"></div>
           </div>
 
-          <div class="category-tab-panel" id="blog-videos-panel" role="tabpanel" aria-labelledby="blog-videos-tab" data-panel="videos" hidden>
-            <div class="content-card-grid">
-              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/ysz5S6PUM-U/hqdefault.jpg" alt="Video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>குர்ஆன் படிப்பின் ஆரம்ப வழிகாட்டல்</h3><p>சரியான முறையில் குர்ஆன் கற்க உதவும் அறிமுகப் பாடம்.</p><a class="content-link" href="#">Watch Video</a></div></article>
-              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/jNQXAC9IVRw/hqdefault.jpg" alt="Video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>தினசரி திக்ரின் முக்கியத்துவம்</h3><p>இறைநினைவால் மன அமைதியை வளர்க்கும் குறும்பேச்சு.</p><a class="content-link" href="#">Watch Video</a></div></article>
-              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/aqz-KE-bpKQ/hqdefault.jpg" alt="Video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>தொழுகையை புரிந்து தொழுவது</h3><p>தொழுகையின் அர்த்தம், ஒழுங்கு, கவனம் பற்றிய விளக்கம்.</p><a class="content-link" href="#">Watch Video</a></div></article>
-              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/kJQP7kiw5Fk/hqdefault.jpg" alt="Video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>இஸ்லாமிய அறிவின் அடிப்படை</h3><p>அறிவை தேடுவதின் நோக்கம் மற்றும் நடைமுறை.</p><a class="content-link" href="#">Watch Video</a></div></article>
-              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/ScMzIvxBSi4/hqdefault.jpg" alt="Video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>நல்ல நண்பர்களின் தாக்கம்</h3><p>இளைஞர்களின் வாழ்க்கையில் நல்ல நட்பு தரும் பலன்.</p><a class="content-link" href="#">Watch Video</a></div></article>
-              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>ரமழான் தயாரிப்பு வழிகாட்டல்</h3><p>ரமழானை ஆன்மிக வளர்ச்சிக்கான வாய்ப்பாக மாற்றுவது.</p><a class="content-link" href="#">Watch Video</a></div></article>
-              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/tgbNymZ7vqY/hqdefault.jpg" alt="Video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>குடும்பத்தில் நல்ல உரையாடல்</h3><p>மரியாதையுடன் பேசுவதின் இஸ்லாமிய வழிகாட்டல்.</p><a class="content-link" href="#">Watch Video</a></div></article>
-              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/oHg5SJYRHA0/hqdefault.jpg" alt="Video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>துஆ ஏற்றுக்கொள்ளும் நேரங்கள்</h3><p>துஆ செய்ய சிறப்பான தருணங்கள் பற்றிய சுருக்கம்.</p><a class="content-link" href="#">Watch Video</a></div></article>
-              <article class="library-card video-card"><div class="video-thumb"><img src="https://img.youtube.com/vi/9bZkp7q19f0/hqdefault.jpg" alt="Video thumbnail"><span class="play-mark">Play</span></div><div class="library-card-body"><h3>மன அமைதிக்கான இஸ்லாமிய வழி</h3><p>நம்பிக்கை, தொழுகை, திக்ர் மூலம் உள்ளத்தை அமைதிப்படுத்துவது.</p><a class="content-link" href="#">Watch Video</a></div></article>
-            </div>
-            <div class="tab-view-all"><a class="btn btn-primary" href="#">View All Videos</a></div>
+          <div class="category-tab-panel" id="blog-hadith-panel" role="tabpanel" aria-labelledby="blog-hadith-tab" data-panel="hadith" hidden>
+            <div class="content-card-grid"></div>
           </div>
 
-          <div class="category-tab-panel" id="blog-qa-panel" role="tabpanel" aria-labelledby="blog-qa-tab" data-panel="qa" hidden>
-            <div class="content-card-grid">
-              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>தொழுகை நேரம் தவறினால் என்ன செய்ய வேண்டும்?</h3><p>தவறிய தொழுகையை நிறைவேற்றும் முறையும் கவனிக்க வேண்டிய விஷயங்களும்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>துஆ எந்த மொழியில் செய்யலாம்?</h3><p>மனத்திலிருந்து இறைவனை வேண்டுவது மற்றும் அரபி துஆக்களின் இடம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>ஸகாத் யாருக்கு கொடுக்கலாம்?</h3><p>ஸகாத்திற்கு தகுதியானவர்கள் பற்றிய சுருக்கமான விளக்கம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>குர்ஆன் படிக்க தினசரி நேரம் எப்படி அமைப்பது?</h3><p>சிறிய அளவில் தொடங்கி தொடர்ச்சியாக படிக்கும் பழக்கம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>குழந்தைகளுக்கு இஸ்லாமிய ஒழுக்கம் எப்படி கற்பிப்பது?</h3><p>அன்பு, முன்மாதிரி, தொடர்ச்சியான நினைவூட்டல் ஆகியவற்றின் அவசியம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>ஹலால் வருமானத்தின் முக்கியத்துவம் என்ன?</h3><p>வாழ்க்கை அமைதி, குடும்ப நலன், இறைபக்தி ஆகியவற்றின் தொடர்பு.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>நோன்பு தவறினால் என்ன செய்ய வேண்டும்?</h3><p>கடமை, காரணம், ஈடு செய்யும் முறை பற்றிய அடிப்படை விளக்கம்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>பெற்றோருக்கு சேவை செய்வதின் நிலை என்ன?</h3><p>குடும்ப உறவுகளில் பெற்றோரின் உரிமை பற்றிய இஸ்லாமிய நினைவூட்டல்.</p><a class="content-link" href="article.html">Read More</a></div></article>
-              <article class="library-card text-only-card"><div class="library-card-body"><span class="content-badge">Question</span><h3>சிறிய பாவங்களை தவிர்க்க எப்படி பழகுவது?</h3><p>தவ்பா, நல்ல சூழல், சுய கண்காணிப்பு ஆகியவற்றின் நடைமுறை வழி.</p><a class="content-link" href="article.html">Read More</a></div></article>
-            </div>
-            <div class="tab-view-all"><a class="btn btn-primary" href="#">View All Q/A</a></div>
+          <div class="category-tab-panel" id="blog-aqeedah-panel" role="tabpanel" aria-labelledby="blog-aqeedah-tab" data-panel="aqeedah" hidden>
+            <div class="content-card-grid"></div>
           </div>
 
-          <div class="category-tab-panel" id="blog-khuthba-panel" role="tabpanel" aria-labelledby="blog-khuthba-tab" data-panel="khuthba" hidden>
-            <div class="content-card-grid">
-              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Sheikh Abdur Rahman</span><h3>இறைநம்பிக்கையை பலப்படுத்துவது</h3><p>28 min - May 21, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
-              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Moulavi Ibrahim</span><h3>குடும்பத்தில் கருணையின் இடம்</h3><p>34 min - May 17, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
-              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Sheikh Yusuf</span><h3>இளைஞர்களும் நேரத்தின் மதிப்பும்</h3><p>25 min - May 10, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
-              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Moulavi Salman</span><h3>நன்மைக்கு அழைக்கும் சமூகம்</h3><p>31 min - May 3, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
-              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Sheikh Haroon</span><h3>துஆவும் தவக்குலும்</h3><p>29 min - Apr 26, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
-              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Moulavi Ameen</span><h3>நல்ல முடிவுகளுக்கான நல்ல நோக்கம்</h3><p>33 min - Apr 19, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
-              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Sheikh Umar</span><h3>சமூக ஒற்றுமையின் அவசியம்</h3><p>30 min - Apr 12, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
-              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Moulavi Bilal</span><h3>நேர்மையின் அழகு</h3><p>27 min - Apr 5, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
-              <article class="library-card text-only-card khuthba-card"><div class="library-card-body"><span class="content-badge">Sheikh Khalid</span><h3>மறுமையை நினைக்கும் மனம்</h3><p>35 min - Mar 29, 2026</p><a class="content-link" href="article.html">Listen / Read</a></div></article>
-            </div>
-            <div class="tab-view-all"><a class="btn btn-primary" href="#">View All Khuthba</a></div>
+          <div class="category-tab-panel" id="blog-rulings-panel" role="tabpanel" aria-labelledby="blog-rulings-tab" data-panel="rulings" hidden>
+            <div class="content-card-grid"></div>
+          </div>
+
+          <div class="category-tab-panel" id="blog-history-panel" role="tabpanel" aria-labelledby="blog-history-tab" data-panel="history" hidden>
+            <div class="content-card-grid"></div>
+          </div>
+
+          <div class="category-tab-panel" id="blog-khutba-panel" role="tabpanel" aria-labelledby="blog-khutba-tab" data-panel="khutba" hidden>
+            <div class="content-card-grid"></div>
+          </div>
+
+          <div class="category-tab-panel" id="blog-general-panel" role="tabpanel" aria-labelledby="blog-general-tab" data-panel="general" hidden>
+            <div class="content-card-grid"></div>
           </div>
         </div>
       </div>

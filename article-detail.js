@@ -54,7 +54,8 @@ function renderDetail(item) {
   document.querySelector(".article-intro").textContent = description;
 
   const metaItems = document.querySelectorAll(".article-meta span");
-  if (metaItems[0]) metaItems[0].textContent = item.collectionName;
+  // எழுத்தாளர் byline, falling back to the collection when none was entered.
+  if (metaItems[0]) metaItems[0].textContent = item.author ? `By ${item.author}` : item.collectionName;
   if (metaItems[1]) metaItems[1].textContent = item.date || "No date";
   if (metaItems[2]) metaItems[2].textContent = category;
 

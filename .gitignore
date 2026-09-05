@@ -1,0 +1,24 @@
+# Dependencies
+/node_modules
+
+# Next.js build output
+/.next
+/out
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+server.err.log
+server.out.log
+
+# Editor/OS
+.DS_Store
+Thumbs.db
+
+# Firebase
+.firebase/
+firebase-debug.log

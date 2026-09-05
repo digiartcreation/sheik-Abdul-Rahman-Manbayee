@@ -95,6 +95,7 @@ contentForms.forEach((form) => {
       description: formData.get("description").trim(),
       image: formData.get("image").trim(),
       category: formData.get("category").trim(),
+      author: (formData.get("author") || "").trim(),
       date: formData.get("date"),
       content: formData.get("content").trim(),
       updatedAt: serverTimestamp()
@@ -158,7 +159,7 @@ function renderPosts(items) {
       <img src="${escapeHtml(item.image || "")}" alt="">
       <div>
         <h3>${escapeHtml(item.title || "Untitled")}</h3>
-        <p>${escapeHtml(item.collectionName)} • ${escapeHtml(item.category || "No category")} • ${escapeHtml(item.date || "No date")}</p>
+        <p>${escapeHtml(item.collectionName)} • ${escapeHtml(item.category || "No category")} • ${escapeHtml(item.author || "No author")} • ${escapeHtml(item.date || "No date")}</p>
       </div>
       <div class="post-actions">
         <button class="small-btn" type="button" data-edit="${item.id}" data-collection="${item.collectionName}">Edit</button>
@@ -198,7 +199,8 @@ function editPost(item) {
   form.querySelector("[name='title']").value = item.title || "";
   form.querySelector("[name='description']").value = item.description || "";
   form.querySelector("[name='image']").value = item.image || "";
-  form.querySelector("[name='category']").value = item.category || "";
+  form.querySelector("[name='category']").value = divisionValue(item.category);
+  form.querySelector("[name='author']").value = item.author || "";
   form.querySelector("[name='date']").value = item.date || "";
   form.querySelector("[name='content']").value = item.content || "";
   form.querySelector(".form-message").textContent = "Editing existing item.";
@@ -221,4 +223,37 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+// Older posts were saved with free-text English categories. Map those onto the
+// seven Tamil divisions so the dropdown selects the right one when editing.
+const legacyDivisions = {
+  "குர்ஆன்": ["quran", "tafsir", "tafseer"],
+  "ஹதீஸ்": ["hadith", "hadeeth", "sunnah"],
+  "கொள்கை": ["aqeedah", "aqidah", "creed", "belief", "tawheed", "spirituality"],
+  "சட்டங்கள்": ["fiqh", "ruling", "law", "prayer", "zakat", "halal", "family"],
+  "வரலாறு": ["history", "seerah", "biography"],
+  "குதுபாக்கள்": ["khutba", "khuthba", "khutbah", "jumuah"]
+};
+
+function divisionValue(category) {
+  const value = String(category || "").trim();
+
+  if (!value) {
+    return "";
+  }
+
+  if (Object.prototype.hasOwnProperty.call(legacyDivisions, value)) {
+    return value;
+  }
+
+  const lower = value.toLowerCase();
+
+  for (const [division, keywords] of Object.entries(legacyDivisions)) {
+    if (keywords.some((keyword) => lower.includes(keyword))) {
+      return division;
+    }
+  }
+
+  return "பொதுவானவை";
 }
