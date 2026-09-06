@@ -1,126 +1,16 @@
-"use client";
-import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { divisions } from "@/lib/divisions";
-import { sampleArticles, getContentByDivision, getLatestContent, formatDate } from "@/lib/data";
+import CategoryTabs from "@/components/CategoryTabs";
+import HomeCounters from "@/components/HomeCounters";
+import SubscribeForm from "@/components/SubscribeForm";
+import { getHomeContent } from "@/lib/content";
+import { excerpt, formatDate } from "@/lib/format";
 
-/* ─── Animated Counter ─── */
-function Counter({ target, label }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
+// Posts published from /admin have to show up straight away, so the page is
+// rendered per request rather than cached at build time.
+export const dynamic = "force-dynamic";
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const duration = 1500;
-          const start = performance.now();
-          function tick(now) {
-            const progress = Math.min((now - start) / duration, 1);
-            setCount(Math.floor(progress * target));
-            if (progress < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return (
-    <div className="hero-counter" ref={ref}>
-      <span className="hero-counter-number">{count}+</span>
-      <span className="hero-counter-label">{label}</span>
-    </div>
-  );
-}
-
-/* ─── Content Card ─── */
-function ContentCard({ item }) {
-  return (
-    <article className="content-card">
-      {item.image && (
-        <div className="content-card-image">
-          <img src={item.image} alt={item.title} loading="lazy" />
-          <span className="content-card-badge">{item.category}</span>
-        </div>
-      )}
-      <div className="content-card-body">
-        <p className="content-card-meta">{formatDate(item.date)}</p>
-        <h3>
-          <Link href={`/katurai/${item.id}`}>{item.title}</Link>
-        </h3>
-        <p>{(item.description || item.content || "").substring(0, 150)}...</p>
-        <div className="content-card-footer">
-          <span className="content-card-author">{item.author}</span>
-          {item.views && (
-            <span className="content-card-views">👁 {item.views}</span>
-          )}
-        </div>
-      </div>
-    </article>
-  );
-}
-
-/* ─── Category Tabs ─── */
-function CategoryTabs() {
-  const [activeTab, setActiveTab] = useState(divisions[0].key);
-  const items = getContentByDivision(activeTab);
-
-  return (
-    <section className="section">
-      <div className="container">
-        <div className="section-heading">
-          <p className="eyebrow">Browse by Category</p>
-          <h2>பிரிவுகள் படி தேடுக</h2>
-        </div>
-
-        <div className="category-tab-list" role="tablist">
-          {divisions.map((d) => (
-            <button
-              key={d.key}
-              className={`category-tab-btn${activeTab === d.key ? " active" : ""}`}
-              onClick={() => setActiveTab(d.key)}
-              role="tab"
-              aria-selected={activeTab === d.key}
-            >
-              {d.icon} {d.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="card-grid stagger" key={activeTab}>
-          {items.length > 0 ? (
-            items.slice(0, 6).map((item) => (
-              <ContentCard key={item.id} item={item} />
-            ))
-          ) : (
-            <p style={{ textAlign: "center", gridColumn: "1/-1", color: "var(--text-muted)", padding: "48px 0" }}>
-              {divisions.find((d) => d.key === activeTab)?.label} பிரிவில் இன்னும் பதிவுகள் இல்லை.
-            </p>
-          )}
-        </div>
-
-        {items.length > 0 && (
-          <div style={{ textAlign: "center", marginTop: "32px" }}>
-            <Link href={`/pirivugal?cat=${activeTab}`} className="btn btn-secondary">
-              {divisions.find((d) => d.key === activeTab)?.label} — அனைத்தையும் காண →
-            </Link>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-/* ─── Home Page ─── */
-export default function HomePage() {
-  const latest = getLatestContent(3);
+export default async function HomePage() {
+  const { all, latest } = await getHomeContent();
 
   return (
     <>
@@ -147,6 +37,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="hero-author">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=400&q=80"
                   alt="Sheikh Abdur Rahman"
@@ -156,12 +47,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="hero-counters animate-fade-in">
-            <Counter target={150} label="கட்டுரைகள்" />
-            <Counter target={85} label="வீடியோக்கள்" />
-            <Counter target={60} label="ஆடியோக்கள்" />
-            <Counter target={40} label="வகுப்புகள்" />
-          </div>
+          <HomeCounters articleCount={all.length} />
         </div>
       </section>
 
@@ -205,7 +91,16 @@ export default function HomePage() {
       </section>
 
       {/* ═══ Category Tabs ═══ */}
-      <CategoryTabs />
+      <section className="section">
+        <div className="container">
+          <div className="section-heading">
+            <p className="eyebrow">Browse by Category</p>
+            <h2>பிரிவுகள் படி தேடுக</h2>
+          </div>
+
+          <CategoryTabs articles={all} limit={6} showMoreLink />
+        </div>
+      </section>
 
       {/* ═══ Latest Posts ═══ */}
       <section className="section section-alt">
@@ -217,7 +112,8 @@ export default function HomePage() {
 
           <div className="latest-grid stagger">
             {latest.map((item) => (
-              <Link href={`/katurai/${item.id}`} key={item.id} className="latest-card">
+              <Link href={`/katurai/${encodeURIComponent(item.id)}`} key={item.id} className="latest-card">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 {item.image && <img src={item.image} alt={item.title} loading="lazy" />}
                 <div className="latest-card-body">
                   <p className="content-card-meta">
@@ -227,7 +123,7 @@ export default function HomePage() {
                     {item.title}
                   </h3>
                   <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>
-                    {(item.description || item.content || "").substring(0, 150)}...
+                    {excerpt(item)}
                   </p>
                 </div>
               </Link>
@@ -247,10 +143,7 @@ export default function HomePage() {
               நினைவூட்டல்கள் உங்கள் மின்னஞ்சலுக்கு.
             </p>
           </div>
-          <form className="subscribe-form" onSubmit={(e) => { e.preventDefault(); alert("நன்றி! சந்தா பதிவு செய்யப்பட்டது."); e.target.reset(); }}>
-            <input type="email" placeholder="உங்கள் மின்னஞ்சல்" required />
-            <button type="submit">Subscribe</button>
-          </form>
+          <SubscribeForm />
         </div>
       </section>
     </>

@@ -1,5 +1,10 @@
 // AUTO-GENERATED from manbayee.com — 179 articles
 // Last updated: 2026-09-05T02:32:00.616Z
+//
+// This file is no longer read by the site. It is the import source for
+// `npm run db:seed`, which loads these articles into MySQL — after that the
+// pages read from the database via src/lib/content.js, so anything added or
+// edited in /admin shows up here on the site.
 
 export const sampleArticles = [
   {

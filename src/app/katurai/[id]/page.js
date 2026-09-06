@@ -1,11 +1,32 @@
-"use client";
-import { use } from "react";
 import Link from "next/link";
-import { getContentById, getLatestContent, formatDate } from "@/lib/data";
+import { after } from "next/server";
+import ShareButtons from "@/components/ShareButtons";
+import { getContentById, getLatestContent } from "@/lib/content";
+import { excerpt, formatDate } from "@/lib/format";
+import { incrementViews } from "@/services/article.service";
 
-export default function ArticleDetailPage({ params }) {
-  const { id } = use(params);
-  const item = getContentById(id);
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const item = await getContentById(decodeURIComponent(id));
+
+  if (!item) return { title: "இந்த உள்ளடக்கம் கிடைக்கவில்லை — Ahlul Islam" };
+
+  return {
+    title: `${item.title} — Ahlul Islam`,
+    description: excerpt(item, 160),
+    openGraph: {
+      title: item.title,
+      description: excerpt(item, 160),
+      images: item.image ? [item.image] : undefined,
+    },
+  };
+}
+
+export default async function ArticleDetailPage({ params }) {
+  const { id } = await params;
+  const item = await getContentById(decodeURIComponent(id));
 
   if (!item) {
     return (
@@ -21,8 +42,10 @@ export default function ArticleDetailPage({ params }) {
     );
   }
 
-  const related = getLatestContent(3).filter((r) => r.id !== item.id).slice(0, 2);
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  // Counted once the page has been sent, so a slow write never delays the read.
+  after(() => incrementViews(item.id));
+
+  const related = (await getLatestContent(3)).filter((r) => r.id !== item.id).slice(0, 2);
 
   return (
     <>
@@ -41,7 +64,7 @@ export default function ArticleDetailPage({ params }) {
                 <span>✍️ {item.author}</span>
                 <span>📅 {formatDate(item.date)}</span>
                 <span>📂 {item.category}</span>
-                {item.views && <span>👁 {item.views} பார்வைகள்</span>}
+                {item.views > 0 && <span>👁 {item.views} பார்வைகள்</span>}
               </div>
 
               <Link href="/pirivugal" style={{ color: "var(--primary)", fontWeight: 600, fontSize: "0.9rem" }}>
@@ -49,14 +72,14 @@ export default function ArticleDetailPage({ params }) {
               </Link>
             </div>
 
-            {item.image && (
-              <img className="article-cover" src={item.image} alt={item.title} />
-            )}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            {item.image && <img className="article-cover" src={item.image} alt={item.title} />}
 
             {item.videoUrl && (
               <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, marginBottom: 32 }}>
                 <iframe
                   src={item.videoUrl}
+                  title={item.title}
                   style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0, borderRadius: "var(--radius-md)" }}
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -65,18 +88,15 @@ export default function ArticleDetailPage({ params }) {
             )}
 
             <div className="article-body">
-              {(item.content || item.description || "").split(/\n{2,}/).filter(Boolean).map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
+              {(item.content || item.description || "")
+                .split(/\n{2,}/)
+                .filter(Boolean)
+                .map((paragraph, index) => (
+                  <p key={index}>{paragraph}</p>
+                ))}
             </div>
 
-            {/* Share Buttons */}
-            <div className="share-buttons">
-              <a className="share-btn whatsapp" href={`https://wa.me/?text=${encodeURIComponent(item.title + " " + shareUrl)}`} target="_blank" rel="noopener" aria-label="Share on WhatsApp">💬</a>
-              <a className="share-btn facebook" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener" aria-label="Share on Facebook">f</a>
-              <a className="share-btn twitter" href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(item.title)}&url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener" aria-label="Share on Twitter">𝕏</a>
-              <button className="share-btn copy" onClick={() => { navigator.clipboard.writeText(shareUrl); alert("Link copied!"); }} aria-label="Copy link">🔗</button>
-            </div>
+            <ShareButtons title={item.title} />
           </div>
         </div>
       </section>
@@ -94,13 +114,14 @@ export default function ArticleDetailPage({ params }) {
                 <article className="content-card" key={r.id}>
                   {r.image && (
                     <div className="content-card-image">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={r.image} alt={r.title} loading="lazy" />
                     </div>
                   )}
                   <div className="content-card-body">
                     <p className="content-card-meta">{formatDate(r.date)}</p>
-                    <h3><Link href={`/katurai/${r.id}`}>{r.title}</Link></h3>
-                    <p>{(r.description || r.content || "").substring(0, 100)}...</p>
+                    <h3><Link href={`/katurai/${encodeURIComponent(r.id)}`}>{r.title}</Link></h3>
+                    <p>{excerpt(r, 100)}</p>
                   </div>
                 </article>
               ))}

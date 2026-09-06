@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  EDITOR
+}
+
+/// Whether a record is live on the public site.
+enum RecordStatus {
+  ACTIVE
+  INACTIVE
+}
+
+/// A post is either a finished article visible to readers, or a draft that only
+/// shows up inside the admin panel.
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+/// Someone who can sign in to /admin. Seeded from ADMIN_EMAIL / ADMIN_PASSWORD.
+model User {
+  id           Int          @id @default(autoincrement())
+  name         String       @db.VarChar(120)
+  email        String       @unique @db.VarChar(190)
+  passwordHash String       @db.VarChar(255)
+  role         UserRole     @default(EDITOR)
+  status       RecordStatus @default(ACTIVE)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  articles     Article[]
+
+  @@index([status])
+}
+
+/// One piece of content on the site — what the admin form creates.
+///
+/// `division` is the section key from src/lib/divisions.js ("quran", "hadith",
+/// …) and `category` is the Tamil sub-category inside it. They are stored as
+/// plain strings rather than a relation so the seven divisions stay defined in
+/// one place in code, exactly as the public pages already read them.
+model Article {
+  id          Int        @id @default(autoincrement())
+  /// URL key. Legacy posts keep their old numeric id here so existing
+  /// /katurai/<id> links carry on working after the import.
+  slug        String     @unique @db.VarChar(190)
+  title       String     @db.VarChar(300)
+  division    String     @db.VarChar(40)
+  category    String     @db.VarChar(120)
+  author      String     @db.VarChar(160)
+  /// Short teaser for the cards. Falls back to the top of `content` when empty.
+  description String?    @db.Text
+  /// The full body. Blank lines separate paragraphs, as the article page expects.
+  content     String     @db.LongText
+  /// Thumbnail: an uploaded file (/api/media/…), a pasted URL, or a division SVG.
+  image       String?    @db.VarChar(500)
+  videoUrl    String?    @db.VarChar(500)
+  publishedAt DateTime
+  views       Int        @default(0)
+  status      PostStatus @default(PUBLISHED)
+  authorUser  User?      @relation(fields: [authorUserId], references: [id], onDelete: SetNull)
+  authorUserId Int?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([division, status])
+  @@index([status, publishedAt])
+  @@index([publishedAt])
+}

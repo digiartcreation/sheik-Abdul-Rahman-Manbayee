@@ -22,3 +22,10 @@ Thumbs.db
 # Firebase
 .firebase/
 firebase-debug.log
+
+# Uploaded thumbnails (runtime data, not source)
+/uploads
+
+# Production credentials
+.env.production
+.env.bak

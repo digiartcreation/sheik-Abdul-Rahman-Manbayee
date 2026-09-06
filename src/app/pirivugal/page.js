@@ -1,37 +1,20 @@
-"use client";
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import CategoryTabs from "@/components/CategoryTabs";
 import { divisions } from "@/lib/divisions";
-import { getContentByDivision, getAllContent, formatDate } from "@/lib/data";
+import { getAllContent } from "@/lib/content";
 
-function ContentCard({ item }) {
-  return (
-    <article className="content-card">
-      {item.image && (
-        <div className="content-card-image">
-          <img src={item.image} alt={item.title} loading="lazy" />
-          <span className="content-card-badge">{item.category}</span>
-        </div>
-      )}
-      <div className="content-card-body">
-        <p className="content-card-meta">{formatDate(item.date)}</p>
-        <h3><Link href={`/katurai/${item.id}`}>{item.title}</Link></h3>
-        <p>{(item.description || item.content || "").substring(0, 150)}...</p>
-        <div className="content-card-footer">
-          <span className="content-card-author">{item.author}</span>
-          {item.views && <span className="content-card-views">👁 {item.views}</span>}
-        </div>
-      </div>
-    </article>
-  );
-}
+export const dynamic = "force-dynamic";
 
-export default function PirivugalPage() {
-  const searchParams = useSearchParams();
-  const initialCat = searchParams.get("cat") || divisions[0].key;
-  const [activeTab, setActiveTab] = useState(initialCat);
-  const items = getContentByDivision(activeTab);
+export const metadata = {
+  title: "பிரிவுகள் — Ahlul Islam",
+  description:
+    "குர்ஆன், ஹதீஸ், கொள்கை, சட்டங்கள், வரலாறு, மதங்கள் — பிரிவுகள் படி கட்டுரைகளை படிக்கலாம்.",
+};
+
+export default async function PirivugalPage({ searchParams }) {
+  // ?cat= lets the home page deep-link straight to a division.
+  const { cat } = await searchParams;
+  const requested = divisions.some((d) => d.key === cat) ? cat : divisions[0].key;
+  const articles = await getAllContent();
 
   return (
     <>
@@ -45,29 +28,7 @@ export default function PirivugalPage() {
 
       <section className="section">
         <div className="container">
-          <div className="category-tab-list" role="tablist">
-            {divisions.map((d) => (
-              <button
-                key={d.key}
-                className={`category-tab-btn${activeTab === d.key ? " active" : ""}`}
-                onClick={() => setActiveTab(d.key)}
-                role="tab"
-                aria-selected={activeTab === d.key}
-              >
-                {d.icon} {d.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="card-grid stagger" key={activeTab}>
-            {items.length > 0 ? (
-              items.map((item) => <ContentCard key={item.id} item={item} />)
-            ) : (
-              <p style={{ textAlign: "center", gridColumn: "1/-1", color: "var(--text-muted)", padding: "48px 0" }}>
-                {divisions.find((d) => d.key === activeTab)?.label} பிரிவில் இன்னும் பதிவுகள் இல்லை.
-              </p>
-            )}
-          </div>
+          <CategoryTabs articles={articles} initialDivision={requested} />
         </div>
       </section>
     </>
