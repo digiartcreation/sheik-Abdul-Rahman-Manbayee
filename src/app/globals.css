@@ -252,16 +252,26 @@ button {
 /* ═══════════════════════════════════════════════
    HEADER / NAVBAR
    ═══════════════════════════════════════════════ */
+/* The glass lives on ::before, NOT on this element. Any backdrop-filter here
+   would make the header a containing block for its fixed-position descendants,
+   which pins the mobile drawer inside the 64px bar instead of the viewport. */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
+  border-bottom: 1px solid var(--border-light);
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: var(--bg-glass);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--border-light);
-  transition: background var(--transition-base), box-shadow var(--transition-base),
-    border-color var(--transition-base);
+  pointer-events: none;
+  transition: background var(--transition-base);
 }
 
 .site-header.is-scrolled {
@@ -270,6 +280,9 @@ button {
 }
 
 .nav {
+  /* Above .site-header::before so the glass never paints over the links. */
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -400,7 +413,7 @@ button {
     display: block;
     position: fixed;
     inset: 0;
-    z-index: 98;
+    z-index: -1;
     background: rgba(10, 22, 40, 0.5);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
@@ -428,7 +441,7 @@ button {
     gap: 4px;
     transform: translateX(100%);
     transition: transform var(--transition-slow);
-    z-index: 99;
+    z-index: 2;
     overflow-y: auto;
     overscroll-behavior: contain;
   }

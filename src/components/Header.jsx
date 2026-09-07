@@ -38,6 +38,18 @@ export default function Header() {
     };
   }, []);
 
+  // Rotating a phone to landscape can cross the 768px breakpoint, at which
+  // point the drawer CSS stops applying and the menu becomes an inline bar —
+  // but the scroll lock below would stay on, freezing the page. Close it.
+  useEffect(() => {
+    const wide = window.matchMedia("(min-width: 769px)");
+    const onChange = (e) => {
+      if (e.matches) setMenuOpen(false);
+    };
+    wide.addEventListener("change", onChange);
+    return () => wide.removeEventListener("change", onChange);
+  }, []);
+
   // While the drawer covers the screen, the page behind it must not scroll.
   useEffect(() => {
     if (!menuOpen) return;
@@ -71,6 +83,15 @@ export default function Header() {
 
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
+      {/* Sits outside <nav> on purpose: it must dim the page, not the nav bar. */}
+      <button
+        type="button"
+        className={`nav-backdrop${menuOpen ? " is-open" : ""}`}
+        aria-hidden="true"
+        tabIndex={-1}
+        onClick={() => setMenuOpen(false)}
+      />
+
       <nav className="nav container" aria-label="Main navigation">
         <Link href="/" className="logo" aria-label="Ahlul Islam home">
           <span className="logo-icon" aria-hidden="true">☪</span>
@@ -90,14 +111,6 @@ export default function Header() {
           <span />
           <span />
         </button>
-
-        <button
-          type="button"
-          className={`nav-backdrop${menuOpen ? " is-open" : ""}`}
-          aria-hidden="true"
-          tabIndex={-1}
-          onClick={() => setMenuOpen(false)}
-        />
 
         <div id="nav-menu" className={`nav-menu${menuOpen ? " is-open" : ""}`}>
           {navLinks.map((link) => (
