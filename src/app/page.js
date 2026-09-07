@@ -31,7 +31,7 @@ export default async function HomePage() {
                   <Link href="/pirivugal" className="btn btn-gold">
                     கட்டுரைகளை படிக்க
                   </Link>
-                  <Link href="/patri" className="btn btn-secondary" style={{ color: "#fff", borderColor: "rgba(255,255,255,0.3)" }}>
+                  <Link href="/patri" className="btn btn-secondary">
                     எங்களை பற்றி
                   </Link>
                 </div>
