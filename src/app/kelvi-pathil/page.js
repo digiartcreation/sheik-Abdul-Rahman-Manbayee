@@ -2,6 +2,7 @@ import Link from "next/link";
 import QuestionForm from "@/components/QuestionForm";
 import { getAllContent } from "@/lib/content";
 import { excerpt, formatDate } from "@/lib/format";
+import Reveal from "@/components/Reveal";
 
 export const dynamic = "force-dynamic";
 
@@ -48,12 +49,12 @@ export default async function KelviPathilPage() {
             <p className="eyebrow">பதில்கள்</p>
             <h2>முந்தைய கேள்வி - பதில்கள்</h2>
           </div>
-          <div className="stagger">
+          <div>
             {qaArticles.length > 0 ? (
-              qaArticles.map((qa) => (
+              qaArticles.map((qa, i) => (
+                <Reveal key={qa.id} delay={Math.min(i, 6) * 60} variant="left">
                 <Link
                   href={`/katurai/${encodeURIComponent(qa.id)}`}
-                  key={qa.id}
                   className="qa-card"
                   style={{ display: "block" }}
                 >
@@ -64,6 +65,7 @@ export default async function KelviPathilPage() {
                     <span className="content-card-meta">{formatDate(qa.date)}</span>
                   </div>
                 </Link>
+                </Reveal>
               ))
             ) : (
               <p style={{ textAlign: "center", color: "var(--text-muted)", padding: 24 }}>

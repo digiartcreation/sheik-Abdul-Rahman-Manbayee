@@ -13,11 +13,21 @@ function Counter({ target, label }) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          const duration = 1500;
+          // A count-up is motion; someone who asked for less just gets the
+          // figure, by collapsing the duration to a single frame.
+          // 1ms rather than 0: the first frame can share a timestamp with
+          // `start`, and 0/0 would put NaN on the screen.
+          const duration = window.matchMedia("(prefers-reduced-motion: reduce)")
+            .matches
+            ? 1
+            : 1600;
           const start = performance.now();
           function tick(now) {
             const progress = Math.min((now - start) / duration, 1);
-            setCount(Math.floor(progress * target));
+            // Ease out cubic: races ahead, then settles. A linear count reads
+            // like a loading spinner rather than a figure arriving.
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.round(eased * target));
             if (progress < 1) requestAnimationFrame(tick);
           }
           requestAnimationFrame(tick);

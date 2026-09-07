@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { after } from "next/server";
 import ShareButtons from "@/components/ShareButtons";
+import ReadingProgress from "@/components/ReadingProgress";
+import Reveal from "@/components/Reveal";
 import { getContentById, getLatestContent } from "@/lib/content";
 import { excerpt, formatDate } from "@/lib/format";
 import { incrementViews } from "@/services/article.service";
@@ -49,6 +51,8 @@ export default async function ArticleDetailPage({ params }) {
 
   return (
     <>
+      <ReadingProgress />
+
       <section className="page-hero">
         <div className="container" style={{ position: "relative" }}>
           <p className="eyebrow" style={{ color: "rgba(255,255,255,0.6)" }}>{item.category}</p>
@@ -105,13 +109,14 @@ export default async function ArticleDetailPage({ params }) {
       {related.length > 0 && (
         <section className="section section-alt">
           <div className="container">
-            <div className="section-heading">
+            <Reveal className="section-heading">
               <p className="eyebrow">மேலும் படிக்க</p>
               <h2>தொடர்புடைய பதிவுகள்</h2>
-            </div>
+            </Reveal>
             <div className="card-grid">
-              {related.map((r) => (
-                <article className="content-card" key={r.id}>
+              {related.map((r, i) => (
+                <Reveal key={r.id} delay={i * 90} variant="scale">
+                <article className="content-card">
                   {r.image && (
                     <div className="content-card-image">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -124,6 +129,7 @@ export default async function ArticleDetailPage({ params }) {
                     <p>{excerpt(r, 100)}</p>
                   </div>
                 </article>
+                </Reveal>
               ))}
             </div>
           </div>

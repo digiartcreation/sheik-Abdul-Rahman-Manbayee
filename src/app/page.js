@@ -2,6 +2,7 @@ import Link from "next/link";
 import CategoryTabs from "@/components/CategoryTabs";
 import HomeCounters from "@/components/HomeCounters";
 import SubscribeForm from "@/components/SubscribeForm";
+import Reveal from "@/components/Reveal";
 import { getHomeContent } from "@/lib/content";
 import { excerpt, formatDate } from "@/lib/format";
 
@@ -56,7 +57,7 @@ export default async function HomePage() {
       {/* ═══ Introduction ═══ */}
       <section className="section" id="introduction">
         <div className="container">
-          <div className="intro-card animate-fade-in-up">
+          <Reveal className="intro-card">
             <p className="bismillah" dir="rtl">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
 
             <div className="section-heading">
@@ -88,33 +89,36 @@ export default async function HomePage() {
                 குறிப்புகளை சேர்க்கிறோம்.
               </li>
             </ul>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* ═══ Category Tabs ═══ */}
       <section className="section">
         <div className="container">
-          <div className="section-heading">
+          <Reveal className="section-heading">
             <p className="eyebrow">Browse by Category</p>
             <h2>பிரிவுகள் படி தேடுக</h2>
-          </div>
+          </Reveal>
 
-          <CategoryTabs articles={all} limit={6} showMoreLink />
+          <Reveal delay={80}>
+            <CategoryTabs articles={all} limit={6} showMoreLink />
+          </Reveal>
         </div>
       </section>
 
       {/* ═══ Latest Posts ═══ */}
       <section className="section section-alt">
         <div className="container">
-          <div className="section-heading">
+          <Reveal className="section-heading">
             <p className="eyebrow">கட்டுரைகள் / எழுத்தாளர்</p>
             <h2>புதிய பதிவுகள்</h2>
-          </div>
+          </Reveal>
 
-          <div className="latest-grid stagger">
-            {latest.map((item) => (
-              <Link href={`/katurai/${encodeURIComponent(item.id)}`} key={item.id} className="latest-card">
+          <div className="latest-grid">
+            {latest.map((item, i) => (
+              <Reveal key={item.id} delay={Math.min(i, 5) * 70} variant="scale">
+              <Link href={`/katurai/${encodeURIComponent(item.id)}`} className="latest-card">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {item.image && <img src={item.image} alt={item.title} loading="lazy" />}
                 <div className="latest-card-body">
@@ -129,6 +133,7 @@ export default async function HomePage() {
                   </p>
                 </div>
               </Link>
+              </Reveal>
             ))}
           </div>
         </div>

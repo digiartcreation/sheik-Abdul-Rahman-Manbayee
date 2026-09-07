@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Reveal from "@/components/Reveal";
 
 export default function ThodarbuPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -25,7 +26,7 @@ export default function ThodarbuPage() {
         <div className="container">
           <div className="contact-grid">
             {/* Contact Form */}
-            <div>
+            <Reveal variant="left">
               <div className="intro-card">
                 <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 24 }}>எங்களுக்கு எழுதுங்கள்</h2>
                 <form onSubmit={handleSubmit}>
@@ -53,10 +54,10 @@ export default function ThodarbuPage() {
                   )}
                 </form>
               </div>
-            </div>
+            </Reveal>
 
             {/* Contact Info */}
-            <div>
+            <Reveal variant="right" delay={90}>
               <div className="contact-info-card">
                 <h3>📍 முகவரி</h3>
                 <p style={{ color: "var(--text-secondary)" }}>
@@ -106,7 +107,7 @@ export default function ThodarbuPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>

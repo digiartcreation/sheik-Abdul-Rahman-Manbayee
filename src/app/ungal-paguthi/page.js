@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Reveal from "@/components/Reveal";
 
 export default function UngalPaguthiPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -74,13 +75,15 @@ export default function UngalPaguthiPage() {
             <p className="eyebrow">கருத்துக்கள்</p>
             <h2>வாசகர்களின் கருத்துக்கள்</h2>
           </div>
-          <div className="stagger">
-            {posts.map((post) => (
-              <div className="user-post-card" key={post.id}>
+          <div>
+            {posts.map((post, i) => (
+              <Reveal key={post.id} delay={Math.min(i, 6) * 60} variant="left">
+              <div className="user-post-card">
                 <p className="user-name">{post.name}</p>
                 <p className="user-date">{new Date(post.date).toLocaleDateString("ta-IN", { day: "numeric", month: "long", year: "numeric" })}</p>
                 <p style={{ fontSize: "0.95rem", lineHeight: 1.7 }}>{post.content}</p>
               </div>
+              </Reveal>
             ))}
           </div>
         </div>

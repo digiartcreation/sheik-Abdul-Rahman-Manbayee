@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
@@ -17,33 +17,95 @@ export default function Header() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const toggleRef = useRef(null);
+
+  // Condense the bar once the reader leaves the top of the page.
+  useEffect(() => {
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 8);
+        frame = 0;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  // While the drawer covers the screen, the page behind it must not scroll.
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        // Send focus back to the control that opened the drawer.
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = previous;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
+  // A route change should never leave the drawer hanging open — including a
+  // browser back/forward, which never runs the links' onClick. Adjusting during
+  // render rather than in an effect avoids a second render pass.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setMenuOpen(false);
+  }
 
   return (
-    <header className="site-header">
+    <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <nav className="nav container" aria-label="Main navigation">
         <Link href="/" className="logo" aria-label="Ahlul Islam home">
-          <span className="logo-icon">☪</span>
+          <span className="logo-icon" aria-hidden="true">☪</span>
           <span className="logo-text">AHLUL ISLAM</span>
         </Link>
 
         <button
-          className="nav-toggle"
+          ref={toggleRef}
+          className={`nav-toggle${menuOpen ? " is-open" : ""}`}
           type="button"
-          aria-label="Open navigation menu"
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(!menuOpen)}
+          aria-controls="nav-menu"
+          onClick={() => setMenuOpen((v) => !v)}
         >
           <span />
           <span />
           <span />
         </button>
 
-        <div className={`nav-menu${menuOpen ? " is-open" : ""}`}>
+        <button
+          type="button"
+          className={`nav-backdrop${menuOpen ? " is-open" : ""}`}
+          aria-hidden="true"
+          tabIndex={-1}
+          onClick={() => setMenuOpen(false)}
+        />
+
+        <div id="nav-menu" className={`nav-menu${menuOpen ? " is-open" : ""}`}>
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={pathname === link.href ? "active" : ""}
+              aria-current={pathname === link.href ? "page" : undefined}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
@@ -53,9 +115,9 @@ export default function Header() {
             className="theme-toggle"
             type="button"
             onClick={toggleTheme}
-            aria-label="Switch color theme"
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
           >
-            {theme === "dark" ? "☀️" : "🌙"}
+            <span className="theme-toggle-icon">{theme === "dark" ? "☀" : "☾"}</span>
           </button>
         </div>
       </nav>

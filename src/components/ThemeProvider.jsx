@@ -1,5 +1,44 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useCallback, useSyncExternalStore } from "react";
+
+const STORAGE_KEY = "manbayee-theme";
+
+/**
+ * The <html data-theme> attribute is the single source of truth — the inline
+ * script in layout.js sets it before the first paint, so React must read from
+ * it rather than hold a competing copy. useSyncExternalStore is the primitive
+ * built for exactly this: an external value that differs between server and
+ * client, without a setState-in-effect round trip.
+ */
+const themeStore = {
+  listeners: new Set(),
+
+  subscribe(callback) {
+    themeStore.listeners.add(callback);
+    return () => themeStore.listeners.delete(callback);
+  },
+
+  getSnapshot() {
+    return document.documentElement.getAttribute("data-theme") || "light";
+  },
+
+  // The server has no DOM and no localStorage; it always renders the light
+  // markup, and the inline script has already corrected the attribute by the
+  // time the client reads it.
+  getServerSnapshot() {
+    return "light";
+  },
+
+  set(next) {
+    document.documentElement.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      // Private browsing can refuse writes; the theme still holds for the visit.
+    }
+    themeStore.listeners.forEach((fn) => fn());
+  },
+};
 
 const ThemeContext = createContext({ theme: "light", toggleTheme: () => {} });
 
@@ -8,20 +47,15 @@ export function useTheme() {
 }
 
 export default function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("light");
+  const theme = useSyncExternalStore(
+    themeStore.subscribe,
+    themeStore.getSnapshot,
+    themeStore.getServerSnapshot
+  );
 
-  useEffect(() => {
-    const saved = localStorage.getItem("manbayee-theme") || "light";
-    setTheme(saved);
-    document.documentElement.setAttribute("data-theme", saved);
+  const toggleTheme = useCallback(() => {
+    themeStore.set(themeStore.getSnapshot() === "light" ? "dark" : "light");
   }, []);
-
-  function toggleTheme() {
-    const next = theme === "light" ? "dark" : "light";
-    setTheme(next);
-    document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("manbayee-theme", next);
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
