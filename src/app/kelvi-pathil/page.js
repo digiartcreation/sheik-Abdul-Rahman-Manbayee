@@ -1,7 +1,7 @@
 import Link from "next/link";
 import QuestionForm from "@/components/QuestionForm";
-import { getAllContent } from "@/lib/content";
-import { excerpt, formatDate } from "@/lib/format";
+import { getAllContent, getQuestions } from "@/lib/content";
+import { excerpt, formatDate, truncate } from "@/lib/format";
 import Reveal from "@/components/Reveal";
 
 export const dynamic = "force-dynamic";
@@ -18,7 +18,28 @@ const isQuestion = (article) =>
   article.title.includes("சந்தேகங்கள்");
 
 export default async function KelviPathilPage() {
-  const qaArticles = (await getAllContent()).filter(isQuestion);
+  const [articles, questions] = await Promise.all([getAllContent(), getQuestions()]);
+
+  // Two sources, one list: the archive carried over from the old site, plus any
+  // article that reads as a question. Shown newest first, like the rest of site.
+  const entries = [
+    ...questions.map((q) => ({
+      key: q.id,
+      href: `/kelvi-pathil/${encodeURIComponent(q.id)}`,
+      heading: truncate(q.question, 120),
+      body: truncate(q.answer, 200),
+      by: q.answeredBy === "admin" ? "Ahlul Islam" : q.answeredBy,
+      date: q.date,
+    })),
+    ...articles.filter(isQuestion).map((a) => ({
+      key: a.id,
+      href: `/katurai/${encodeURIComponent(a.id)}`,
+      heading: truncate(a.title, 120),
+      body: excerpt(a, 200),
+      by: a.author,
+      date: a.date,
+    })),
+  ].sort((a, b) => String(b.date).localeCompare(String(a.date)));
 
   return (
     <>
@@ -50,18 +71,14 @@ export default async function KelviPathilPage() {
             <h2>முந்தைய கேள்வி - பதில்கள்</h2>
           </div>
           <div>
-            {qaArticles.length > 0 ? (
-              qaArticles.map((qa, i) => (
-                <Reveal key={qa.id} delay={Math.min(i, 6) * 60} variant="left">
-                <Link
-                  href={`/katurai/${encodeURIComponent(qa.id)}`}
-                  className="qa-card"
-                  style={{ display: "block" }}
-                >
-                  <h3>{qa.title}</h3>
-                  <p>{excerpt(qa, 200)}</p>
+            {entries.length > 0 ? (
+              entries.map((qa, i) => (
+                <Reveal key={qa.key} delay={Math.min(i, 6) * 60} variant="left">
+                <Link href={qa.href} className="qa-card" style={{ display: "block" }}>
+                  <h3>{qa.heading}</h3>
+                  <p>{qa.body}</p>
                   <div className="content-card-footer" style={{ borderTop: "none", paddingTop: 0, marginTop: 12 }}>
-                    <span className="content-card-author">{qa.author}</span>
+                    <span className="content-card-author">{qa.by}</span>
                     <span className="content-card-meta">{formatDate(qa.date)}</span>
                   </div>
                 </Link>

@@ -47,30 +47,50 @@ model User {
 /// plain strings rather than a relation so the seven divisions stay defined in
 /// one place in code, exactly as the public pages already read them.
 model Article {
-  id          Int        @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   /// URL key. Legacy posts keep their old numeric id here so existing
   /// /katurai/<id> links carry on working after the import.
-  slug        String     @unique @db.VarChar(190)
-  title       String     @db.VarChar(300)
-  division    String     @db.VarChar(40)
-  category    String     @db.VarChar(120)
-  author      String     @db.VarChar(160)
+  slug         String     @unique @db.VarChar(190)
+  title        String     @db.VarChar(300)
+  division     String     @db.VarChar(40)
+  category     String     @db.VarChar(120)
+  author       String     @db.VarChar(160)
   /// Short teaser for the cards. Falls back to the top of `content` when empty.
-  description String?    @db.Text
+  description  String?    @db.Text
   /// The full body. Blank lines separate paragraphs, as the article page expects.
-  content     String     @db.LongText
+  content      String     @db.LongText
   /// Thumbnail: an uploaded file (/api/media/…), a pasted URL, or a division SVG.
-  image       String?    @db.VarChar(500)
-  videoUrl    String?    @db.VarChar(500)
-  publishedAt DateTime
-  views       Int        @default(0)
-  status      PostStatus @default(PUBLISHED)
-  authorUser  User?      @relation(fields: [authorUserId], references: [id], onDelete: SetNull)
+  image        String?    @db.VarChar(500)
+  videoUrl     String?    @db.VarChar(500)
+  publishedAt  DateTime
+  views        Int        @default(0)
+  status       PostStatus @default(PUBLISHED)
+  authorUser   User?      @relation(fields: [authorUserId], references: [id], onDelete: SetNull)
   authorUserId Int?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 
   @@index([division, status])
   @@index([status, publishedAt])
   @@index([publishedAt])
+}
+
+/// The Q&A archive carried over from the old ahlulislam.net site, where these
+/// lived in their own `question_table` rather than among the posts. They are
+/// kept separate here for the same reason: 62 of them dropped into `Article`
+/// would swamp the home feed and skew every division count.
+model Question {
+  id          Int        @id @default(autoincrement())
+  /// URL key, e.g. "kelvi-12". The old numeric id is preserved in it.
+  slug        String     @unique @db.VarChar(190)
+  question    String     @db.Text
+  answer      String     @db.LongText
+  /// Who answered. "admin" on every imported row; kept for future entries.
+  answeredBy  String?    @db.VarChar(160)
+  publishedAt DateTime
+  status      PostStatus @default(PUBLISHED)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([status, publishedAt])
 }

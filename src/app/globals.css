@@ -1765,3 +1765,101 @@ h1, h2, h3,
 .user-post-card p {
   overflow-wrap: break-word;
 }
+
+/* ═══════════════════════════════════════════════
+   Q&A DETAIL
+   Reuses the article shell; only the question block and pager are new.
+   ═══════════════════════════════════════════════ */
+.qa-question {
+  max-width: 68ch;
+  margin: 0 auto 32px;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-section-alt);
+  border-left: 4px solid var(--secondary);
+}
+
+.qa-question p:not(.qa-question-label) {
+  font-size: 1.02rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+}
+
+.qa-question-label,
+.qa-answer-label {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  margin-bottom: 10px;
+}
+
+.qa-answer-label {
+  color: var(--primary);
+}
+
+[data-theme="dark"] .qa-answer-label {
+  color: var(--primary-light);
+}
+
+.qa-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 68ch;
+  margin: 40px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-light);
+}
+
+.qa-pager a {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  transition: color var(--transition-fast);
+}
+
+.qa-pager a:last-child {
+  text-align: right;
+}
+
+.qa-pager a:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 600px) {
+  .qa-pager {
+    grid-template-columns: 1fr;
+  }
+
+  .qa-pager a:last-child {
+    text-align: left;
+  }
+}
+
+/* The founder's statement on /patri — set apart from the body copy without
+   introducing a new card. */
+.founder-note {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-light);
+}
+
+.founder-note p {
+  color: var(--text-secondary);
+  line-height: 1.95;
+  margin-bottom: 14px;
+}
+
+.founder-signature {
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 4px;
+}
+
+[data-theme="dark"] .founder-signature {
+  color: var(--primary-light);
+}
