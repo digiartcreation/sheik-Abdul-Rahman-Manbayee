@@ -1,8 +1,17 @@
 "use client";
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { divisions, getDivision } from "@/lib/divisions";
+import { isHtml, plainTextToHtml } from "@/lib/richtext";
 import ThumbnailField from "./ThumbnailField";
 import { apiPost, apiPut } from "./api";
+
+// CKEditor reaches for `window` as soon as it is imported, so it is loaded in
+// the browser only. The placeholder holds the editor's height while it loads.
+const RichTextEditor = dynamic(() => import("./RichTextEditor"), {
+  ssr: false,
+  loading: () => <div className="admin-rich-loading">Loading editor…</div>,
+});
 
 const today = () => new Date().toISOString().slice(0, 10);
 
@@ -26,7 +35,8 @@ const toForm = (article) => ({
   category: article.category || "",
   author: article.author || "",
   description: article.description || "",
-  content: article.content || "",
+  // Imported posts are plain text; the editor needs paragraphs to show them.
+  content: isHtml(article.content) ? article.content : plainTextToHtml(article.content),
   image: article.image || "",
   videoUrl: article.videoUrl || "",
   publishedAt: article.date || today(),
@@ -141,18 +151,14 @@ export default function ArticleForm({ editing, onSaved, onCancel }) {
 
       {/* 4. Full description */}
       <div className="admin-field">
-        <label htmlFor="post-content">4. Full description</label>
-        <textarea
-          id="post-content"
-          rows={14}
-          required
-          placeholder="முழு கட்டுரையையும் இங்கே எழுதுங்கள்…"
+        <span className="admin-field-label">4. Full description</span>
+        <RichTextEditor
           value={form.content}
-          onChange={set("content")}
-          aria-invalid={Boolean(errorFor("content"))}
+          onChange={(content) => setForm((current) => ({ ...current, content }))}
+          invalid={Boolean(errorFor("content"))}
         />
         <p className="admin-field-hint">
-          Leave a blank line between paragraphs — each block becomes its own paragraph on the site.
+          Press Enter for a new paragraph. Use the toolbar for headings, bold, lists, quotes and links.
         </p>
         {errorFor("content") && <p className="admin-field-error">{errorFor("content")}</p>}
       </div>

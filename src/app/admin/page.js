@@ -6,6 +6,7 @@ import { apiDelete, apiGet, apiPost } from "./api";
 import AdminLogin from "./AdminLogin";
 import ArticleForm from "./ArticleForm";
 import ArticleList from "./ArticleList";
+import ConfirmDialog from "./ConfirmDialog";
 
 export default function AdminPage() {
   // null = still checking the session cookie, false = signed out.
@@ -15,6 +16,10 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  // The post waiting on the delete confirmation, if any.
+  const [pendingDelete, setPendingDelete] = useState(null);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
 
   const loadArticles = useCallback(async () => {
     setLoading(true);
@@ -61,15 +66,27 @@ export default function AdminPage() {
     setEditing(null);
   }
 
-  async function handleDelete(article) {
-    if (!confirm(`Delete “${article.title}”? This cannot be undone.`)) return;
+  function handleDelete(article) {
+    setDeleteError("");
+    setPendingDelete(article);
+  }
+
+  async function confirmDelete() {
+    const article = pendingDelete;
+    setDeleting(true);
+    setDeleteError("");
 
     try {
       await apiDelete(`/api/articles/${article.dbId}`);
       if (editing?.dbId === article.dbId) setEditing(null);
+      setPendingDelete(null);
+      setNotice(`Deleted “${article.title}”.`);
       await loadArticles();
     } catch (failure) {
-      setError(failure.message);
+      // Shown inside the dialog, which stays open so it can be retried.
+      setDeleteError(failure.message);
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -130,6 +147,18 @@ export default function AdminPage() {
           onDelete={handleDelete}
         />
       </div>
+
+      <ConfirmDialog
+        open={Boolean(pendingDelete)}
+        title="Delete this post?"
+        busy={deleting}
+        error={deleteError}
+        onConfirm={confirmDelete}
+        onCancel={() => setPendingDelete(null)}
+      >
+        <p className="admin-dialog-subject">{pendingDelete?.title}</p>
+        <p>It will be removed from the site straight away. This cannot be undone.</p>
+      </ConfirmDialog>
     </div>
   );
 }

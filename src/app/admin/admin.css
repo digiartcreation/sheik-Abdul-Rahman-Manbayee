@@ -162,6 +162,132 @@
   border-color: var(--accent);
 }
 
+/* ---------- Rich text editor (CKEditor) ---------- */
+
+/* CKEditor takes its look from --ck-* variables. Pointing them at the site
+   tokens keeps it in step with the light/dark toggle.
+   - Set on the editor and on .ck-body-wrapper (where the link balloon and the
+     heading dropdown render, at the end of <body>) rather than on :root, where
+     the editor's own stylesheet loads later and would win the tie.
+   - The component-level names are set, not just the base colours: CKEditor
+     derives the rest on :root, so a base colour changed here would not reach
+     them. */
+.admin-wrap,
+.ck-body-wrapper {
+  --ck-font-face: var(--font-ui);
+  --ck-border-radius: var(--radius-sm);
+  --ck-color-text: var(--text-primary);
+
+  /* Writing area */
+  --ck-color-base-background: var(--bg-body);
+  --ck-color-base-border: var(--border-medium);
+  --ck-color-focus-border: var(--primary);
+  --ck-focus-border-color: var(--primary);
+  --ck-editor-editable-focus-border-color: var(--primary);
+  --ck-focus-outer-shadow: 0 0 0 3px rgba(27, 107, 74, 0.15);
+  --ck-inner-shadow: none;
+
+  /* Toolbar and its buttons */
+  --ck-color-toolbar-background: var(--bg-card);
+  --ck-toolbar-border: 1px solid var(--border-medium);
+  --ck-editor-frame-border: 1px solid var(--border-medium);
+  --ck-color-button-default-background: transparent;
+  --ck-color-button-default-hover-background: var(--bg-section-alt);
+  --ck-color-button-default-active-background: var(--bg-section-alt);
+  --ck-color-button-on-background: rgba(27, 107, 74, 0.12);
+  --ck-color-button-on-hover-background: rgba(27, 107, 74, 0.2);
+  --ck-color-button-on-active-background: rgba(27, 107, 74, 0.2);
+  --ck-color-button-on-color: var(--primary);
+
+  /* Heading dropdown, link balloon and its URL field */
+  --ck-color-dropdown-panel-background: var(--bg-card);
+  --ck-dropdown-panel-border: 1px solid var(--border-medium);
+  --ck-color-panel-background: var(--bg-card);
+  --ck-balloon-panel-border: 1px solid var(--border-medium);
+  --ck-color-list-background: var(--bg-card);
+  --ck-color-list-button-hover-background: var(--bg-section-alt);
+  --ck-color-list-button-on-background: var(--primary);
+  --ck-color-list-button-on-background-focus: var(--primary-dark);
+  --ck-color-list-button-on-text: #fff;
+  --ck-color-input-background: var(--bg-body);
+  --ck-color-input-text: var(--text-primary);
+  --ck-color-input-border: var(--border-medium);
+  --ck-input-border: 1px solid var(--border-medium);
+  --ck-color-labeled-field-label-background: var(--bg-card);
+  --ck-color-link-default: var(--primary);
+}
+
+[data-theme="dark"] .admin-wrap,
+[data-theme="dark"] .ck-body-wrapper {
+  --ck-color-button-on-color: var(--primary-light);
+  --ck-color-link-default: var(--primary-light);
+}
+
+.admin-rich .ck.ck-editor__editable_inline {
+  min-height: 360px;
+  padding: 4px 18px;
+  font-family: var(--font-tamil), var(--font-ui);
+  font-size: 0.98rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+}
+
+/* The site reset zeroes margins and padding; give the content its spacing back
+   so what is written here reads the way the article page will show it. */
+.admin-rich .ck-content p,
+.admin-rich .ck-content ul,
+.admin-rich .ck-content ol,
+.admin-rich .ck-content blockquote {
+  margin: 0.9em 0;
+}
+
+.admin-rich .ck-content h2,
+.admin-rich .ck-content h3 {
+  margin: 1.1em 0 0.5em;
+  line-height: 1.5;
+}
+
+.admin-rich .ck-content h2 { font-size: 1.3em; }
+.admin-rich .ck-content h3 { font-size: 1.12em; }
+
+.admin-rich .ck-content ul,
+.admin-rich .ck-content ol {
+  padding-inline-start: 1.6em;
+}
+
+.admin-rich .ck-content blockquote {
+  padding: 2px 0 2px 16px;
+  border-inline-start: 3px solid var(--primary);
+  color: var(--text-secondary);
+  font-style: normal;
+}
+
+.admin-rich .ck-content a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+[data-theme="dark"] .admin-rich .ck-content a {
+  color: var(--primary-light);
+}
+
+.admin-rich.is-invalid .ck.ck-toolbar,
+.admin-rich.is-invalid .ck.ck-editor__editable_inline:not(.ck-focused) {
+  border-color: var(--accent);
+}
+
+.admin-rich-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 402px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  background: var(--bg-body);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+}
+
 .admin-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -360,9 +486,97 @@
   background: var(--accent);
 }
 
+.admin-btn-danger-solid {
+  color: #fff;
+  background: var(--accent);
+}
+
+.admin-btn-danger-solid:hover:not(:disabled) {
+  background: #a93226;
+}
+
 .admin-btn-sm {
   padding: 6px 13px;
   font-size: 0.82rem;
+}
+
+/* ---------- Confirm dialog ---------- */
+
+.admin-dialog {
+  width: min(440px, calc(100vw - 32px));
+  margin: auto;
+  padding: 0;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.admin-dialog[open] {
+  animation: admin-dialog-in 180ms ease-out;
+}
+
+.admin-dialog::backdrop {
+  background: rgba(10, 22, 40, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes admin-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+.admin-dialog-panel {
+  padding: 28px 26px 22px;
+  text-align: center;
+}
+
+.admin-dialog-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 14px;
+  color: var(--accent);
+  background: rgba(192, 57, 43, 0.1);
+  border-radius: 50%;
+}
+
+.admin-dialog h2 {
+  font-size: 1.15rem;
+  margin: 0 0 10px;
+}
+
+.admin-dialog-body p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.admin-dialog-body .admin-dialog-subject {
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+
+.admin-dialog .admin-message {
+  margin: 14px 0 0;
+  text-align: left;
+}
+
+.admin-dialog-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+.admin-dialog-actions .admin-btn {
+  flex: 1 1 0;
 }
 
 /* ---------- Messages ---------- */

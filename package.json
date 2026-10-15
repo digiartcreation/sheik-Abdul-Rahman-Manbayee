@@ -14,13 +14,16 @@
     "db:seed": "node prisma/seed.mjs"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-react": "^12.0.0",
     "@prisma/client": "^6.19.3",
     "bcryptjs": "^2.4.3",
+    "ckeditor5": "^49.0.0",
     "jose": "^5.10.0",
     "next": "16.3.6",
     "prisma": "^6.19.3",
     "react": "19.2.8",
     "react-dom": "19.2.8",
+    "sanitize-html": "^2.18.1",
     "server-only": "^0.0.1",
     "zod": "^3.25.76"
   },

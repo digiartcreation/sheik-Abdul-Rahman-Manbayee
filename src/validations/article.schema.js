@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { divisions } from "@/lib/divisions";
+import { htmlToText } from "@/lib/richtext";
 
 const divisionKeys = divisions.map((d) => d.key);
 
@@ -36,7 +37,14 @@ export const articleSchema = z.object({
     .optional()
     .or(z.literal("")),
 
-  content: z.string().trim().min(20, "Full description must be at least 20 characters"),
+  // Counted on the text, not the editor's HTML — an empty editor still sends
+  // markup like "<p>&nbsp;</p>".
+  content: z
+    .string()
+    .trim()
+    .refine((v) => htmlToText(v).replace(/\s+/g, " ").trim().length >= 20, {
+      message: "Full description must be at least 20 characters",
+    }),
 
   // Either an uploaded path (/api/media/…) or a pasted absolute URL.
   image: z
