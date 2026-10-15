@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { NotFoundError } from "@/lib/errors";
 import { getDivision } from "@/lib/divisions";
+import { sanitizeArticleHtml } from "@/lib/sanitize";
 
 /**
  * Tamil titles are kept as-is in the slug — they survive URL encoding and read
@@ -54,7 +55,8 @@ function toRow(data) {
     category: data.category || getDivision(data.division).label,
     author: data.author || "நிர்வாகம்",
     description: data.description || null,
-    content: data.content,
+    // The article page renders this as HTML, so it is cleaned on the way in.
+    content: sanitizeArticleHtml(data.content),
     image: data.image || null,
     videoUrl: data.videoUrl || null,
     publishedAt: data.publishedAt ? new Date(data.publishedAt) : new Date(),

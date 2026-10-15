@@ -1708,6 +1708,49 @@ button {
   color: var(--text-primary);
 }
 
+/* Posts written in the admin editor arrive as HTML. These cover what its
+   toolbar can produce — see src/app/admin/RichTextEditor.jsx. */
+.article-body h2,
+.article-body h3 {
+  margin: 40px 0 16px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.article-body h2 { font-size: 1.4em; }
+.article-body h3 { font-size: 1.18em; }
+
+.article-body ul,
+.article-body ol {
+  margin-bottom: 24px;
+  padding-inline-start: 1.6em;
+}
+
+.article-body li {
+  margin-bottom: 8px;
+}
+
+.article-body blockquote {
+  margin-bottom: 24px;
+  padding: 4px 0 4px 20px;
+  border-inline-start: 3px solid var(--primary);
+  color: var(--text-secondary);
+}
+
+.article-body blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.article-body a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+[data-theme="dark"] .article-body a {
+  color: var(--primary-light);
+}
+
 .article-cover {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);

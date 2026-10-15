@@ -5,6 +5,7 @@ import ReadingProgress from "@/components/ReadingProgress";
 import Reveal from "@/components/Reveal";
 import { getContentById, getLatestContent } from "@/lib/content";
 import { excerpt, formatDate } from "@/lib/format";
+import { isHtml } from "@/lib/richtext";
 import { incrementViews } from "@/services/article.service";
 
 export const dynamic = "force-dynamic";
@@ -48,6 +49,7 @@ export default async function ArticleDetailPage({ params }) {
   after(() => incrementViews(item.id));
 
   const related = (await getLatestContent(3)).filter((r) => r.id !== item.id).slice(0, 2);
+  const body = item.content || item.description || "";
 
   return (
     <>
@@ -91,14 +93,20 @@ export default async function ArticleDetailPage({ params }) {
               </div>
             )}
 
-            <div className="article-body">
-              {(item.content || item.description || "")
-                .split(/\n{2,}/)
-                .filter(Boolean)
-                .map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-            </div>
+            {/* Editor posts are HTML, cleaned by src/lib/sanitize.js when saved.
+                Imported posts are plain text with blank lines between paragraphs. */}
+            {isHtml(body) ? (
+              <div className="article-body" dangerouslySetInnerHTML={{ __html: body }} />
+            ) : (
+              <div className="article-body">
+                {body
+                  .split(/\n{2,}/)
+                  .filter(Boolean)
+                  .map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+              </div>
+            )}
 
             <ShareButtons title={item.title} />
           </div>
