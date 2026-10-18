@@ -40,7 +40,7 @@ export default async function HomePage() {
               <div className="hero-author">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/sheikh-abdur-rahman.jpg"
+                  src="/sheikh-abdur-rahman.webp"
                   alt="Sheikh Abdur Rahman"
                   width={220}
                   height={220}
