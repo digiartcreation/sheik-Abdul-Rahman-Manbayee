@@ -7,8 +7,18 @@ import { isHtml, plainTextToHtml } from "@/lib/richtext";
 // event handlers, inline styles, classes pasted in from Word — is dropped here,
 // before it ever reaches the database.
 const options = {
-  allowedTags: ["p", "br", "h2", "h3", "strong", "i", "u", "a", "ul", "ol", "li", "blockquote"],
-  allowedAttributes: { a: ["href", "target", "rel"] },
+  allowedTags: [
+    "p", "br", "h2", "h3", "strong", "i", "u", "a", "ul", "ol", "li", "blockquote",
+    "figure", "table", "thead", "tbody", "tr", "th", "td",
+  ],
+  allowedAttributes: {
+    a: ["href", "target", "rel"],
+    // Merged cells and header cells, from the table toolbar.
+    th: ["colspan", "rowspan", "scope"],
+    td: ["colspan", "rowspan"],
+  },
+  // The editor wraps every table in <figure class="table">.
+  allowedClasses: { figure: ["table"] },
   allowedSchemes: ["http", "https", "mailto", "tel"],
   transformTags: {
     // Only a new-tab target survives, and it always travels with noopener.

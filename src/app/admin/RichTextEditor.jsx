@@ -12,6 +12,8 @@ import {
   List,
   Paragraph,
   PasteFromOffice,
+  Table,
+  TableToolbar,
   Underline,
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
@@ -35,6 +37,8 @@ const config = {
     Link,
     List,
     BlockQuote,
+    Table,
+    TableToolbar,
     Autoformat,
     PasteFromOffice,
   ],
@@ -49,6 +53,7 @@ const config = {
     "bulletedList",
     "numberedList",
     "blockQuote",
+    "insertTable",
     "|",
     "undo",
     "redo",
@@ -60,6 +65,11 @@ const config = {
       { model: "heading2", view: "h2", title: "Heading", class: "ck-heading_heading2" },
       { model: "heading3", view: "h3", title: "Sub-heading", class: "ck-heading_heading3" },
     ],
+  },
+  // Rows, columns, header row/column and merged cells. No table or cell
+  // properties: those write inline borders and colours.
+  table: {
+    contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
   },
   link: {
     defaultProtocol: "https://",

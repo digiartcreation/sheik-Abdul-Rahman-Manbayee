@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CategoryTabs from "@/components/CategoryTabs";
+import HeroAuthor from "@/components/HeroAuthor";
 import HomeCounters from "@/components/HomeCounters";
 import SubscribeForm from "@/components/SubscribeForm";
 import Reveal from "@/components/Reveal";
@@ -37,16 +38,7 @@ export default async function HomePage() {
                   </Link>
                 </div>
               </div>
-              <div className="hero-author">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/sheikh-abdur-rahman.webp"
-                  alt="Sheikh Abdur Rahman"
-                  width={220}
-                  height={220}
-                />
-                <p className="hero-author-name">Sheikh Abdur Rahman</p>
-              </div>
+              <HeroAuthor />
             </div>
           </div>
 

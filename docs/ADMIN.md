@@ -82,8 +82,10 @@ The form follows the order of the fields:
 2. **Heading** — the title, and what the URL slug is derived from.
 3. **Thumbnail** — upload a file, paste an image link, or use the ready-made
    image for the section.
-4. **Full description** — the article body. Leave a blank line between
-   paragraphs; each block becomes its own `<p>` on the article page.
+4. **Full description** — the article body, in a rich-text editor: headings,
+   bold/italic/underline, links, lists, quotes and tables (rows, columns, header
+   row/column, merged cells). Tables pasted from Word are kept too. Anything
+   else is stripped when the post is saved.
 
 Sub-category, author, date, status and an optional video link follow. Saving as
 **Draft** keeps a post inside the panel; **Published** puts it on the site.

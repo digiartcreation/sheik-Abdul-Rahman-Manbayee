@@ -33,7 +33,7 @@ export function htmlToText(value) {
   if (!isHtml(source)) return source;
 
   return source
-    .replace(/<(br|\/p|\/h[1-6]|\/li|\/blockquote)\b[^>]*>/gi, " ")
+    .replace(/<(br|\/p|\/h[1-6]|\/li|\/blockquote|\/t[dh])\b[^>]*>/gi, " ")
     .replace(/<[^>]+>/g, "")
     .replace(/&nbsp;/g, " ")
     .replace(/&lt;/g, "<")
