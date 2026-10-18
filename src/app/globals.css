@@ -573,46 +573,35 @@ button {
   flex-wrap: wrap;
 }
 
-/* Founder portrait: the whole photo, lectern included, with a gold frame offset
-   behind it and the name plate underneath. The right margin and the gap leave
-   room for the frame's overhang. */
+/* Founder portrait: one card with even padding, the whole photo (lectern
+   included) and the name plate beneath it. Inner corners are the outer radius
+   less the padding, so the curves run parallel. */
 .hero-author {
   display: grid;
-  gap: 28px;
+  gap: 10px;
   justify-self: center;
-  width: clamp(220px, 22vw, 270px);
-  margin-right: 14px;
-}
-
-.hero-author-photo {
-  position: relative;
-}
-
-.hero-author-photo::before {
-  content: '';
-  position: absolute;
-  inset: 14px -14px -14px 14px;
-  border: 2px solid var(--secondary);
+  width: clamp(240px, 24vw, 290px);
+  padding: 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
 
-.hero-author-photo img {
-  position: relative;
+.hero-author img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: var(--radius-lg);
+  border-radius: 6px;
   background: var(--bg-section-alt);
-  box-shadow: var(--shadow-lg);
 }
 
 .hero-author-plate {
   display: grid;
   gap: 2px;
   padding: 10px 14px;
-  border-radius: var(--radius-md);
+  border-radius: 6px;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  box-shadow: var(--shadow-md);
   text-align: center;
 }
 
@@ -677,7 +666,7 @@ button {
   }
 
   .hero-author {
-    width: min(64vw, 260px);
+    width: min(72vw, 280px);
   }
 
   .hero-counters {

@@ -38,16 +38,14 @@ export default async function HomePage() {
                 </div>
               </div>
               <figure className="hero-author">
-                <div className="hero-author-photo">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/sheikh-abdur-rahman.webp"
-                    alt="Sheikh Abdur Rahman"
-                    width={462}
-                    height={556}
-                    fetchPriority="high"
-                  />
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/sheikh-abdur-rahman.webp"
+                  alt="Sheikh Abdur Rahman"
+                  width={462}
+                  height={556}
+                  fetchPriority="high"
+                />
                 <figcaption className="hero-author-plate">
                   <span className="hero-author-name">Sheikh Abdur Rahman</span>
                   <span className="hero-author-role">M. அப்துர் ரஹ்மான் மன்பஈ</span>
