@@ -573,84 +573,40 @@ button {
   flex-wrap: wrap;
 }
 
-/* Founder portrait: the whole photo, a gold frame offset behind it, and a name
-   plate overlapping its foot. The margins leave room for both overhangs. */
+/* Founder portrait: the whole photo, lectern included, with a gold frame offset
+   behind it and the name plate underneath. The right margin and the gap leave
+   room for the frame's overhang. */
 .hero-author {
-  position: relative;
+  display: grid;
+  gap: 28px;
   justify-self: center;
   width: clamp(220px, 22vw, 270px);
-  margin: 0 14px 32px 0;
+  margin-right: 14px;
 }
 
-.hero-author::before {
+.hero-author-photo {
+  position: relative;
+}
+
+.hero-author-photo::before {
   content: '';
   position: absolute;
   inset: 14px -14px -14px 14px;
   border: 2px solid var(--secondary);
   border-radius: var(--radius-lg);
-  pointer-events: none;
 }
 
-.hero-author-photo {
+.hero-author-photo img {
   position: relative;
   display: block;
   width: 100%;
-  padding: 0;
-  border: 0;
+  height: auto;
   border-radius: var(--radius-lg);
-  overflow: hidden;
   background: var(--bg-section-alt);
   box-shadow: var(--shadow-lg);
-  cursor: zoom-in;
-}
-
-/* Trimmed just above the lectern at the foot of the photo; the preview shows it
-   whole. */
-.hero-author-photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 462 / 488;
-  object-fit: cover;
-  object-position: top;
-  transition: transform var(--transition-slow);
-}
-
-.hero-author-photo:hover img {
-  transform: scale(1.04);
-}
-
-.hero-author-photo:focus-visible {
-  outline: 3px solid var(--secondary);
-  outline-offset: 4px;
-}
-
-.hero-author-zoom {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  color: #fff;
-  background: rgba(10, 22, 40, 0.55);
-  backdrop-filter: blur(4px);
-  transition: background var(--transition-fast), transform var(--transition-fast);
-}
-
-.hero-author-photo:hover .hero-author-zoom,
-.hero-author-photo:focus-visible .hero-author-zoom {
-  background: var(--primary);
-  transform: scale(1.08);
 }
 
 .hero-author-plate {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: -24px;
   display: grid;
   gap: 2px;
   padding: 10px 14px;
@@ -672,85 +628,6 @@ button {
   font-size: 0.78rem;
   font-weight: 600;
   line-height: 1.5;
-}
-
-/* Full-photo preview opened from the portrait. */
-/* margin: auto is what centres a modal <dialog>; the reset at the top of this
-   file zeroes it. */
-.photo-lightbox {
-  margin: auto;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  overflow: visible;
-}
-
-.photo-lightbox[open] {
-  animation: lightboxIn var(--transition-base);
-}
-
-.photo-lightbox::backdrop {
-  background: rgba(5, 12, 24, 0.88);
-  backdrop-filter: blur(4px);
-}
-
-/* A modal <dialog> does not stop the page behind it from scrolling. */
-html:has(.photo-lightbox[open]) {
-  overflow: hidden;
-}
-
-.photo-lightbox figure {
-  display: grid;
-  gap: 14px;
-  justify-items: center;
-  margin: 0;
-}
-
-.photo-lightbox img {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: calc(100svh - 120px);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-xl);
-}
-
-.photo-lightbox figcaption {
-  color: #fff;
-  font-weight: 700;
-}
-
-.photo-lightbox-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 50%;
-  color: #fff;
-  background: rgba(10, 22, 40, 0.7);
-  cursor: pointer;
-  transition: background var(--transition-fast);
-}
-
-.photo-lightbox-close:hover {
-  background: var(--accent);
-}
-
-.photo-lightbox-close:focus-visible {
-  outline: 3px solid var(--secondary);
-  outline-offset: 2px;
-}
-
-@keyframes lightboxIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
 }
 
 /* Counters */
@@ -801,12 +678,6 @@ html:has(.photo-lightbox[open]) {
 
   .hero-author {
     width: min(64vw, 260px);
-  }
-
-  .hero-author-plate {
-    left: 10px;
-    right: 10px;
-    padding-inline: 10px;
   }
 
   .hero-counters {
