@@ -11,8 +11,8 @@ Prisma, zod for validation, and a signed session cookie (`jose` + `bcryptjs`).
 
 | Path | What it is |
 | --- | --- |
-| `prisma/schema.prisma` | `User` and `Article` tables |
-| `prisma/migrations/0_init` | The SQL that creates them |
+| `prisma/schema.prisma` | `User`, `Article`, `Question` and `Feedback` tables |
+| `prisma/migrations/` | The SQL that creates them, one folder per change |
 | `prisma/seed.mjs` | Creates the admin login and imports the 179 old articles |
 | `src/lib/` | `prisma`, `auth`, `response`, `errors`, `api` helpers |
 | `src/services/` | Business logic — article CRUD, login, uploads |
@@ -92,6 +92,25 @@ Sub-category, author, date, status and an optional video link follow. Saving as
 
 The list on the right edits and deletes existing posts, including the imported
 ones, and filters by heading or section.
+
+## Readers’ questions and feedback
+
+The panel has three tabs: **Posts**, **Questions** and **Feedback**.
+
+**Questions.** The form on `/kelvi-pathil` saves a reader’s question as
+*Waiting*. Nothing reaches the site until it is answered: pick it in the
+Questions tab, write the answer, leave the status on **Published** and save.
+The question and answer then show on `/kelvi-pathil` with their own page.
+Save as **Draft** to keep a half-written answer off the site. The tab shows how
+many questions are waiting. The asker’s name and email are only visible here,
+never on the site. New questions carry on the old numbering (`kelvi-68`, …).
+
+**Feedback.** Comments from `/ungal-paguthi` go live the moment they are sent.
+The Feedback tab can **Hide** one (taken off the site, kept here) or delete it.
+The sender’s email is shown only here.
+
+Both public forms carry a hidden honeypot field, so simple bots are dropped
+without an error. There is no rate limit or captcha beyond that.
 
 ## Uploads
 
@@ -176,6 +195,12 @@ All responses use the same envelope: `{ success, message, data, errors }`.
 | `GET` | `/api/articles` | — | Published posts; signed in, drafts too |
 | `POST` | `/api/articles` | ✔ | Create |
 | `GET/PUT/DELETE` | `/api/articles/:id` | ✔ | Read, update, delete |
+| `POST` | `/api/questions` | — | A reader asks a question (saved unanswered) |
+| `GET` | `/api/questions` | ✔ | Every question, with the asker’s details |
+| `PUT/DELETE` | `/api/questions/:id` | ✔ | Answer/publish, or delete |
+| `POST` | `/api/feedback` | — | A reader leaves a comment (live at once) |
+| `GET` | `/api/feedback` | ✔ | Every comment, hidden ones included |
+| `PUT/DELETE` | `/api/feedback/:id` | ✔ | Hide/show (`{ status }`), or delete |
 | `POST` | `/api/upload` | ✔ | Store a thumbnail |
 | `GET` | `/api/media/:name` | — | Serve a stored thumbnail |
 

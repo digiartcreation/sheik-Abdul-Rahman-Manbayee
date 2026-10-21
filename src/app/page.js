@@ -22,7 +22,7 @@ export default async function HomePage() {
           <div className="hero-card animate-fade-in-up">
             <div className="hero-content">
               <div>
-                <p className="hero-label">AHLUL ISLAM</p>
+                <p className="hero-label">Manbayee.com</p>
                 <h1 className="hero-title">இஸ்லாமிய அறிவின் வாயில்</h1>
                 <p className="hero-text">
                   குர்ஆன், ஹதீஸ், சட்டங்கள் மற்றும் ஆய்வுகள் தமிழில்

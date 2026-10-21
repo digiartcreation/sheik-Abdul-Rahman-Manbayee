@@ -93,9 +93,9 @@ export default function Header() {
       />
 
       <nav className="nav container" aria-label="Main navigation">
-        <Link href="/" className="logo" aria-label="Ahlul Islam home">
+        <Link href="/" className="logo" aria-label="Manbayee.com home">
           <span className="logo-icon" aria-hidden="true">☪</span>
-          <span className="logo-text">AHLUL ISLAM</span>
+          <span className="logo-text">Manbayee.com</span>
         </Link>
 
         <button

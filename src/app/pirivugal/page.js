@@ -5,7 +5,7 @@ import { getAllContent } from "@/lib/content";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "பிரிவுகள் — Ahlul Islam",
+  title: "பிரிவுகள்",
   description:
     "குர்ஆன், ஹதீஸ், கொள்கை, சட்டங்கள், வரலாறு, மதங்கள் — பிரிவுகள் படி கட்டுரைகளை படிக்கலாம்.",
 };

@@ -7,7 +7,7 @@ import Reveal from "@/components/Reveal";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "கேள்வி - பதில் — Ahlul Islam",
+  title: "கேள்வி - பதில்",
   description: "உங்கள் ஐயங்களை பதிவு செய்யுங்கள். முந்தைய கேள்வி-பதில்களை படிக்கலாம்.",
 };
 
@@ -28,7 +28,7 @@ export default async function KelviPathilPage() {
       href: `/kelvi-pathil/${encodeURIComponent(q.id)}`,
       heading: truncate(q.question, 120),
       body: truncate(q.answer, 200),
-      by: q.answeredBy === "admin" ? "Ahlul Islam" : q.answeredBy,
+      by: q.answeredBy,
       date: q.date,
     })),
     ...articles.filter(isQuestion).map((a) => ({

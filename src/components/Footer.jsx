@@ -6,17 +6,12 @@ export default function Footer() {
       <div className="container footer-grid">
         {/* About */}
         <div className="footer-section footer-about">
-          <h3>AHLUL ISLAM</h3>
+          <h3>Manbayee.com</h3>
           <p>
             குர்ஆன், ஹதீஸ் மற்றும் அவற்றின் பொருள்தொகுப்புகள் — ஸலஃபுஸ்
             ஸாலிஹீன்களின் வழிமுறைப்படி தெளிவாக அளிப்பதும், புரிந்துகொள்வதும்,
             செயல்படுத்துவதும் — அதுவே சீரிய பாதை.
           </p>
-          <div className="footer-social">
-            <a href="https://x.com/Ahlulislam3?s=08" target="_blank" rel="noopener noreferrer" aria-label="Twitter">𝕏</a>
-            <a href="https://www.facebook.com/ahlulislam.net" target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
-            <a href="#" aria-label="YouTube">▶</a>
-          </div>
         </div>
 
         {/* Quick Links */}
@@ -57,7 +52,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <div className="container">
-          © {new Date().getFullYear()} Ahlul Islam — manbayee.com. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
+          © {new Date().getFullYear()} Manbayee.com. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.
         </div>
       </div>
     </footer>

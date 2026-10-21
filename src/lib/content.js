@@ -1,6 +1,7 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
 import { toPublicArticle } from "@/services/article.service";
+import { toPublicFeedback } from "@/services/feedback.service";
 
 // Read side of the site. Everything here returns the same shape the pages used
 // to get from the hard-coded array in data.js, so the components did not have
@@ -62,35 +63,44 @@ export async function getHomeContent() {
   return { all, latest: all.slice(0, 3) };
 }
 
+// A reader's question stays off the site until the admin has answered it and
+// published the answer.
+const answered = { status: "PUBLISHED", answer: { not: null } };
+
+const toPublicQuestion = (q) => ({
+  id: q.slug,
+  question: q.question,
+  answer: q.answer,
+  // "admin" on every imported row, and the default for answers given in /admin.
+  answeredBy: !q.answeredBy || q.answeredBy === "admin" ? "Manbayee.com" : q.answeredBy,
+  date: q.publishedAt.toISOString().slice(0, 10),
+});
+
 /**
- * The Q&A archive carried over from the old site. Kept out of `Article` so the
- * 62 entries do not swamp the home feed or skew the division counts.
+ * The Q&A archive carried over from the old site, plus readers' questions the
+ * admin has answered. Kept out of `Article` so they do not swamp the home feed
+ * or skew the division counts.
  */
 export async function getQuestions() {
   const questions = await prisma.question.findMany({
-    where: { status: "PUBLISHED" },
+    where: answered,
     orderBy: [{ publishedAt: "asc" }, { id: "asc" }],
   });
-
-  return questions.map((q) => ({
-    id: q.slug,
-    question: q.question,
-    answer: q.answer,
-    answeredBy: q.answeredBy,
-    date: q.publishedAt.toISOString().slice(0, 10),
-  }));
+  return questions.map(toPublicQuestion);
 }
 
 export async function getQuestionById(slug) {
   const q = await prisma.question.findFirst({
-    where: { status: "PUBLISHED", slug: String(slug) },
+    where: { ...answered, slug: String(slug) },
   });
-  if (!q) return null;
-  return {
-    id: q.slug,
-    question: q.question,
-    answer: q.answer,
-    answeredBy: q.answeredBy,
-    date: q.publishedAt.toISOString().slice(0, 10),
-  };
+  return q ? toPublicQuestion(q) : null;
+}
+
+/** Readers' comments for /ungal-paguthi, newest first. Hidden ones stay in /admin. */
+export async function getFeedback() {
+  const feedback = await prisma.feedback.findMany({
+    where: { status: "ACTIVE" },
+    orderBy: [{ createdAt: "desc" }, { id: "desc" }],
+  });
+  return feedback.map(toPublicFeedback);
 }

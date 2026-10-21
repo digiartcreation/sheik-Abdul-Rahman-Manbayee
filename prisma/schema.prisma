@@ -79,18 +79,45 @@ model Article {
 /// lived in their own `question_table` rather than among the posts. They are
 /// kept separate here for the same reason: 62 of them dropped into `Article`
 /// would swamp the home feed and skew every division count.
+///
+/// Readers' questions from /kelvi-pathil land here too, as a DRAFT with no
+/// answer. They reach the public list only once the admin answers and
+/// publishes them.
 model Question {
   id          Int        @id @default(autoincrement())
   /// URL key, e.g. "kelvi-12". The old numeric id is preserved in it.
   slug        String     @unique @db.VarChar(190)
   question    String     @db.Text
-  answer      String     @db.LongText
+  /// Empty while a reader's question is waiting for the admin.
+  answer      String?    @db.LongText
   /// Who answered. "admin" on every imported row; kept for future entries.
   answeredBy  String?    @db.VarChar(160)
+  /// The reader who asked. Shown only inside /admin, never on the site.
+  askerName   String?    @db.VarChar(120)
+  askerEmail  String?    @db.VarChar(190)
+  /// The section the reader filed it under, as its Tamil label.
+  topic       String?    @db.VarChar(120)
   publishedAt DateTime
   status      PostStatus @default(PUBLISHED)
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
   @@index([status, publishedAt])
+}
+
+/// A reader's comment from /ungal-paguthi. It is on the page as soon as it is
+/// sent; the admin can hide it (INACTIVE) or delete it.
+model Feedback {
+  id        Int          @id @default(autoincrement())
+  name      String       @db.VarChar(120)
+  /// Shown only inside /admin, never on the site.
+  email     String       @db.VarChar(190)
+  /// கருத்து, ஆலோசனை, விமர்சனம் or பாராட்டு.
+  type      String       @db.VarChar(40)
+  content   String       @db.Text
+  status    RecordStatus @default(ACTIVE)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([status, createdAt])
 }

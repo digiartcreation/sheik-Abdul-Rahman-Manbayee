@@ -14,10 +14,10 @@ export async function generateMetadata({ params }) {
   const { id } = await params;
   const item = await getContentById(decodeURIComponent(id));
 
-  if (!item) return { title: "இந்த உள்ளடக்கம் கிடைக்கவில்லை — Ahlul Islam" };
+  if (!item) return { title: "இந்த உள்ளடக்கம் கிடைக்கவில்லை" };
 
   return {
-    title: `${item.title} — Ahlul Islam`,
+    title: item.title,
     description: excerpt(item, 160),
     openGraph: {
       title: item.title,

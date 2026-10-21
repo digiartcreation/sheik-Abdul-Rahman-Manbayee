@@ -1292,6 +1292,26 @@ button {
   font-size: 0.9rem;
 }
 
+.form-message.is-error {
+  background: rgba(192, 57, 43, 0.1);
+  color: var(--accent);
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* Spam trap: off-screen rather than display:none, which some bots skip. */
+.form-trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* ═══════════════════════════════════════════════
    CONTACT PAGE
    ═══════════════════════════════════════════════ */

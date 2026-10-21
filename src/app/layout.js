@@ -30,8 +30,8 @@ const arabic = Amiri({
 export const metadata = {
   metadataBase: new URL("https://manbayee.com"),
   title: {
-    default: "Ahlul Islam — இஸ்லாமிய அறிவின் வாயில் | manbayee.com",
-    template: "%s | Ahlul Islam",
+    default: "Manbayee.com — இஸ்லாமிய அறிவின் வாயில்",
+    template: "%s | Manbayee.com",
   },
   description:
     "குர்ஆன், ஹதீஸ், கொள்கை, சட்டங்கள், வரலாறு, மதங்கள் — தமிழில் இஸ்லாமிய அறிவை எளிமையாக புரிந்துகொள்ளுங்கள்.",
@@ -41,8 +41,8 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "ta_IN",
-    siteName: "Ahlul Islam",
-    title: "Ahlul Islam — இஸ்லாமிய அறிவின் வாயில்",
+    siteName: "Manbayee.com",
+    title: "Manbayee.com — இஸ்லாமிய அறிவின் வாயில்",
     description:
       "குர்ஆன், ஹதீஸ், கொள்கை, சட்டங்கள், வரலாறு, மதங்கள் — தமிழில்.",
   },

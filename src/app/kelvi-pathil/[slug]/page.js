@@ -57,7 +57,7 @@ export default async function QuestionPage({ params }) {
           <div className="article-detail">
             <div className="article-detail-header">
               <div className="article-detail-meta">
-                <span>✍️ {question.answeredBy === "admin" ? "Ahlul Islam" : question.answeredBy}</span>
+                <span>✍️ {question.answeredBy}</span>
                 <span>📅 {formatDate(question.date)}</span>
               </div>
 
