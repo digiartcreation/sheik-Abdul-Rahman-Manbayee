@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { permanentRedirect } from "next/navigation";
 import { after } from "next/server";
 import ShareButtons from "@/components/ShareButtons";
 import ReadingProgress from "@/components/ReadingProgress";
 import Reveal from "@/components/Reveal";
+import { articleRedirect } from "@/lib/article-redirects";
 import { getContentById, getLatestContent } from "@/lib/content";
 import { excerpt, formatDate } from "@/lib/format";
 import { isHtml } from "@/lib/richtext";
@@ -29,9 +31,15 @@ export async function generateMetadata({ params }) {
 
 export default async function ArticleDetailPage({ params }) {
   const { id } = await params;
-  const item = await getContentById(decodeURIComponent(id));
+  const slug = decodeURIComponent(id);
+  const item = await getContentById(slug);
 
   if (!item) {
+    // A duplicate that was retired, or a number the old site used for a hidden
+    // copy: go to the article itself rather than a dead end.
+    const target = articleRedirect(slug);
+    if (target) permanentRedirect(`/katurai/${target}`);
+
     return (
       <section className="section">
         <div className="container" style={{ textAlign: "center", padding: "80px 0" }}>

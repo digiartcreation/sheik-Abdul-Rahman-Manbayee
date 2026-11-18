@@ -112,6 +112,23 @@ The sender’s email is shown only here.
 Both public forms carry a hidden honeypot field, so simple bots are dropped
 without an error. There is no rate limit or captcha beyond that.
 
+## Article numbering
+
+Every article keeps the number it had on the old site (`/katurai/<number>`).
+`node prisma/fix-sequence.mjs` (run once, safe to re-run) put the sequence in
+order:
+
+- It added old post **#82**, the one article that had not come across.
+- It moved the 46 Word-document imports (`/katurai/1000–1045`) to **Draft**.
+  Each was a word-for-word copy of an old-site article, so every one was listed
+  twice and series such as கடன் முறைகளும் சட்டங்களும் appeared out of order.
+
+Numbers without a page of their own redirect to the article itself:
+the Word-document copies and the old site's hidden duplicates (81, 90, 100,
+109–111, 116, 123, 154, 155). The map is in `src/lib/article-redirects.js`.
+Numbers the old site had already deleted (2, 35, 49–55, 67–76) have no content
+anywhere and still show "not found".
+
 ## Uploads
 
 Uploaded thumbnails are written to `uploads/` in the project root — *not*
