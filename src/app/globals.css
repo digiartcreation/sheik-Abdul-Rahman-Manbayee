@@ -781,35 +781,34 @@ button {
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border-light);
-  transition: transform var(--transition-base), box-shadow var(--transition-base),
-    border-color var(--transition-base);
+  transition: box-shadow var(--transition-base);
   display: flex;
   flex-direction: column;
 }
 
+/* A quiet hover: a soft shadow, the title turns green, the photo eases in. */
 .content-card:hover,
 .content-card:focus-within {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--primary);
+  box-shadow: var(--shadow-md);
 }
 
-/* A gold hairline that draws itself across the top edge on hover. */
-.content-card::after {
+/* The title link stretches over the whole card, so a click on the photo,
+   the excerpt or the footer opens the article too. */
+.content-card h3 a::after {
   content: '';
   position: absolute;
-  inset: 0 0 auto 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--secondary), var(--secondary-light));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--transition-base);
-  z-index: 2;
+  inset: 0;
+  z-index: 1;
+  border-radius: var(--radius-lg);
 }
 
-.content-card:hover::after,
-.content-card:focus-within::after {
-  transform: scaleX(1);
+.content-card h3 a:focus-visible {
+  outline: none;
+}
+
+.content-card h3 a:focus-visible::after {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
 }
 
 .content-card-image {
@@ -826,7 +825,7 @@ button {
 }
 
 .content-card:hover .content-card-image img {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .content-card-badge {
@@ -1702,8 +1701,6 @@ button {
     transform: none;
   }
 
-  .content-card:hover,
-  .content-card:focus-within,
   .scroll-top:hover,
   .btn:active {
     transform: none;
@@ -1887,7 +1884,8 @@ h1, h2, h3,
   transition: color var(--transition-fast);
 }
 
-.content-card-body h3 a:hover {
+.content-card:hover h3 a,
+.content-card-body h3 a:focus-visible {
   color: var(--primary);
 }
 
